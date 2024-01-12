@@ -1,0 +1,6 @@
+.logo-link {
+  font-family: "Carattere", cursive;
+  color: var(--clr-primary);
+  text-decoration: none;
+  font-size: 2.4rem;
+}

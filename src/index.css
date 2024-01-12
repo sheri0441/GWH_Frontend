@@ -1,0 +1,12 @@
+:root {
+  --clr-primary: rgb(12, 12, 12);
+  --clr-secondary: #3075a6;
+  --clr-tertiary: #e7ebef;
+  --clr-neutral: #fcfdfe;
+}
+
+body {
+  padding: 0%;
+  margin: 0%;
+  font-family: "inter", sans-serif;
+}
