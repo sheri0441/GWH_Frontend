@@ -5,14 +5,21 @@ interface Props {
   Type: any;
   clickEvent: Function;
   onlySmall?: boolean;
+  danger?: boolean;
 }
 
-const IconSecondaryBtn = ({ Type, clickEvent, onlySmall = false }: Props) => {
+const IconSecondaryBtn = ({
+  Type,
+  clickEvent,
+  onlySmall = false,
+  danger = false,
+}: Props) => {
   return (
     <SecondaryBtn
       padding="1.125rem"
       clickEvent={clickEvent}
       onlySmall={onlySmall}
+      danger={danger}
     >
       <SvgIcon
         component={Type}

@@ -9,8 +9,9 @@ interface Props {
 const LinkNav = ({ name, link }: Props) => {
   return (
     <NavLink
-      style={style}
-      className={({ isActive }) => (isActive ? style.active : "")}
+      className={({ isActive }) =>
+        isActive ? `${style.navlink}  ${style.active}` : style.navlink
+      }
       to={link}
     >
       {name}

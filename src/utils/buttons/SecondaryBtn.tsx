@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ReactNode } from "react";
+import { red } from "@mui/material/colors";
 
 interface SecondaryBtnParameter {
   children: ReactNode;
@@ -8,6 +9,7 @@ interface SecondaryBtnParameter {
   clickEvent: Function;
   onlySmall?: boolean;
   hideOnSmall?: boolean;
+  danger?: boolean;
 }
 
 const SecondaryBtn = ({
@@ -16,6 +18,7 @@ const SecondaryBtn = ({
   clickEvent,
   onlySmall = false,
   hideOnSmall = false,
+  danger = false,
 }: SecondaryBtnParameter) => {
   const theme = useTheme();
   return (
@@ -24,15 +27,19 @@ const SecondaryBtn = ({
       color="primary"
       sx={{
         borderRadius: 0,
-        border: `2px solid ${theme.palette.primary.main}`,
+        border: `2px solid ${danger ? red[500] : theme.palette.primary.main}`,
         borderWidth: "2px",
-        borderColor: "primary",
+        borderColor: danger ? red[500] : theme.palette.primary.main,
         position: "relative",
+        color: danger ? red[500] : theme.palette.primary.main,
         "&:focus": { borderWidth: "2px" },
         "&:hover": {
           borderWidth: "2px",
-          backgroundColor: `${theme.palette.primary.main} !important`,
+          backgroundColor: `${
+            danger ? red[500] : theme.palette.primary.main
+          } !important`,
           color: `${theme.palette.secondary.light}`,
+          borderColor: danger ? red[500] : theme.palette.primary.main,
         },
         padding: `${padding}`,
         minWidth: "fit-content",

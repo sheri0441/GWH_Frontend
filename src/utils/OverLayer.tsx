@@ -55,6 +55,7 @@ const OverLayer = ({
           right: 0,
           width: { xs: "50%", md: smallOnly ? "fit-content" : "50%" },
           maxWidth: "450px",
+          minWidth: "250px",
           boxSizing: "border-box",
           background: {
             xs: `${theme.palette.background.default}`,
@@ -71,7 +72,7 @@ const OverLayer = ({
               ? "none"
               : `0px 0px 16px -4px ${theme.palette.primary.main}`,
           },
-          marginTop: { xs: "auto", md: "-4px" },
+          marginTop: { xs: "auto", md: smallOnly ? "-4px" : "0" },
           display: {
             xs: showOverLayer ? "block" : "none",
             md: smallOnly ? "block" : showOverLayer ? "block" : "none",
