@@ -28,7 +28,7 @@ const OverLayer = ({
         top: 0,
         right: 0,
         height: { xs: "100vH", md: smallOnly ? "fit-content" : "100vH" },
-        zIndex: { xs: 8, md: 0 },
+        zIndex: { xs: 8, md: 8 },
         display: {
           xs: showOverLayer ? "block" : "none",
           md: "block",
@@ -96,7 +96,7 @@ const OverLayer = ({
 
           <Typography
             sx={{
-              fontSize: "24px",
+              fontSize: { xs: "1rem", md: "1.5rem" },
               textTransform: "uppercase",
               display: { xs: "block", md: smallOnly ? "none" : "block" },
             }}

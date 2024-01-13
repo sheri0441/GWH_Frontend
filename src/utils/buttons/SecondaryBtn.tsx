@@ -27,6 +27,7 @@ const SecondaryBtn = ({
         border: `2px solid ${theme.palette.primary.main}`,
         borderWidth: "2px",
         borderColor: "primary",
+        position: "relative",
         "&:focus": { borderWidth: "2px" },
         "&:hover": {
           borderWidth: "2px",
