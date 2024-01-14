@@ -56,6 +56,7 @@ const OverLayer = ({
           width: { xs: "50%", md: smallOnly ? "fit-content" : "50%" },
           maxWidth: "450px",
           minWidth: "250px",
+          maxHeight: "100vh",
           boxSizing: "border-box",
           background: {
             xs: `${theme.palette.background.default}`,

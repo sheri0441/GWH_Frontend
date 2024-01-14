@@ -7,15 +7,15 @@ import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
 import Navigation from "./Navigation";
 import { useState } from "react";
-// import ShoppingCart from "./ShoppingCart";
 import ShopCart from "./ShopCart";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const theme = useTheme();
-
   const [showNav, setShowNav] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const showNavHandler = () => {
     setShowNav(!showNav);
@@ -88,17 +88,12 @@ const Header = () => {
           </Box>
           <IconSecondaryBtn
             Type={Person2Icon}
-            clickEvent={() => console.log("hello from login")}
-            onlySmall={true}
-          />
-          <IconSecondaryBtn
-            Type={MenuOpenIcon}
-            clickEvent={showNavHandler}
+            clickEvent={() => navigate("/")}
             onlySmall={true}
           />
           <SecondaryBtn
             padding="0.5rem 1rem"
-            clickEvent={() => console.log("hello from sign up")}
+            clickEvent={() => navigate("/")}
             hideOnSmall={true}
           >
             <Typography
@@ -111,6 +106,23 @@ const Header = () => {
               Login/Register
             </Typography>
           </SecondaryBtn>
+          <SecondaryBtn padding="1.125rem" clickEvent={() => navigate("/user")}>
+            <img
+              style={{
+                width: "100%",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%,-50%)",
+              }}
+              src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            />
+          </SecondaryBtn>
+          <IconSecondaryBtn
+            Type={MenuOpenIcon}
+            clickEvent={showNavHandler}
+            onlySmall={true}
+          />
         </Box>
         <ShopCart showCart={showCart} showCartHandler={showCartHandler} />
       </Container>
