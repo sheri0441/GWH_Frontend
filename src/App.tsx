@@ -4,7 +4,7 @@ import Layout from "./pages/Layout";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
-import { Store } from "./Store";
+import { Store } from "./app/Store";
 
 const theme = createTheme({
   palette: {

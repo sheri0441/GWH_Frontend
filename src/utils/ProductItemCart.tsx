@@ -1,12 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import IconSecondaryBtn from "./buttons/IconSecondaryBtn";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAppDispatch } from "../app/hooks";
+import { filterById } from "../feature/loginSlice";
 
 interface Props {
-  product: { title: string; price: number; quantity: number; imageURL: string };
+  product: {
+    name: string;
+    price: number;
+    quantity: number;
+    imageURL: string;
+    id: string;
+  };
 }
 
 const ProductItemCart = ({ product }: Props) => {
+  const dispatch = useAppDispatch();
   return (
     <Box
       sx={{
@@ -42,7 +51,7 @@ const ProductItemCart = ({ product }: Props) => {
               WebkitBoxOrient: "vertical",
             }}
           >
-            {product.title}
+            {product.name}
           </Typography>
         </Box>
         <Box
@@ -70,7 +79,7 @@ const ProductItemCart = ({ product }: Props) => {
       <Box sx={{ marginInline: "auto" }}>
         <IconSecondaryBtn
           Type={DeleteIcon}
-          clickEvent={() => console.log("hello from delete")}
+          clickEvent={() => dispatch(filterById(product.id))}
           danger={true}
         />
       </Box>

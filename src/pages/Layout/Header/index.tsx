@@ -10,12 +10,19 @@ import { useState } from "react";
 import ShopCart from "./ShopCart";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { logIn, logOut } from "../../../feature/loginSlice";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
   const theme = useTheme();
+  const isLogedIn = useAppSelector((state) => state.login.isLogin);
+  const cartItems = useAppSelector((state) => state.login.user.cart);
+  const dispatch = useAppDispatch();
   const [showNav, setShowNav] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();
 
   const showNavHandler = () => {
     setShowNav(!showNav);
@@ -82,42 +89,56 @@ const Header = () => {
                 }}
                 component={"span"}
               >
-                00
+                {cartItems.length > 10
+                  ? cartItems.length > 100
+                    ? "+1"
+                    : cartItems.length
+                  : `0${cartItems.length}`}
               </Typography>
             </Box>
           </Box>
-          <IconSecondaryBtn
-            Type={Person2Icon}
-            clickEvent={() => navigate("/")}
-            onlySmall={true}
-          />
-          <SecondaryBtn
-            padding="0.5rem 1rem"
-            clickEvent={() => navigate("/")}
-            hideOnSmall={true}
-          >
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontWeight: "medium",
-              }}
-              component={"span"}
+          {!isAuthenticated ? (
+            <>
+              <IconSecondaryBtn
+                Type={Person2Icon}
+                clickEvent={() => loginWithRedirect()}
+                onlySmall={true}
+              />
+              <SecondaryBtn
+                padding="0.5rem 1rem"
+                clickEvent={() => loginWithRedirect()}
+                hideOnSmall={true}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "medium",
+                  }}
+                  component={"span"}
+                >
+                  Login/Register
+                </Typography>
+              </SecondaryBtn>
+            </>
+          ) : (
+            <SecondaryBtn
+              padding="1.125rem"
+              clickEvent={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
             >
-              Login/Register
-            </Typography>
-          </SecondaryBtn>
-          <SecondaryBtn padding="1.125rem" clickEvent={() => navigate("/user")}>
-            <img
-              style={{
-                width: "100%",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%,-50%)",
-              }}
-              src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-            />
-          </SecondaryBtn>
+              <img
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%,-50%)",
+                }}
+                src={user?.picture}
+              />
+            </SecondaryBtn>
+          )}
           <IconSecondaryBtn
             Type={MenuOpenIcon}
             clickEvent={showNavHandler}

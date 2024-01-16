@@ -4,21 +4,16 @@ import ProductItemCart from "../../../utils/ProductItemCart";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 
 interface Props {
   showCart: boolean;
   showCartHandler: Function;
 }
 
-const product = {
-  title:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident tempore consequuntur sapiente reiciendis consequatur similique et. Recusandae fugiat natus aperiam!",
-  quantity: 3,
-  price: 221,
-  imageURL: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-};
-
 const ShopCart = ({ showCart, showCartHandler }: Props) => {
+  const cart = useAppSelector((state) => state.login.user.cart);
+  const dispatch = useAppDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
   return (
@@ -29,7 +24,7 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
     >
       <Box
         sx={{
-          height: "calc(100% - 60px)",
+          minHeight: "calc(100% - 60px)",
           display: "flex",
           flexDirection: "column",
           gap: 1,
@@ -42,6 +37,7 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
             overflowY: "scroll",
             display: "flex",
             flexDirection: "column",
+            height: "calc(100vh - 160px)",
             gap: 2,
             "&::-webkit-scrollbar": {
               width: "0.4rem",
@@ -55,19 +51,9 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
             },
           }}
         >
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
-          <ProductItemCart product={product} />
+          {cart.map((product) => (
+            <ProductItemCart key={product.id} product={product} />
+          ))}
         </Box>
         <Box>
           <Divider sx={{ marginBottom: 1 }} />
