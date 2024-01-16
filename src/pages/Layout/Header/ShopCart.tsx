@@ -4,7 +4,7 @@ import ProductItemCart from "../../../utils/ProductItemCart";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 
 interface Props {
   showCart: boolean;
@@ -13,7 +13,7 @@ interface Props {
 
 const ShopCart = ({ showCart, showCartHandler }: Props) => {
   const cart = useAppSelector((state) => state.login.user.cart);
-  const dispatch = useAppDispatch();
+
   const theme = useTheme();
   const navigate = useNavigate();
   return (
