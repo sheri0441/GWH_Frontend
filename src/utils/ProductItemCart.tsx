@@ -30,7 +30,7 @@ const ProductItemCart = ({ product }: Props) => {
         sx={{
           width: "100%",
           maxWidth: "2.5rem",
-          aspectRatio: "1/1",
+          aspectRatio: "1 / 1",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

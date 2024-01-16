@@ -1,9 +1,9 @@
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { Box, Container } from "@mui/material";
+import { Box, Container, useScrollTrigger, useTheme } from "@mui/material";
 import LogoLink from "../../../components/LogoLink";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import Navigation from "./Navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShopCart from "./ShopCart";
 import LoginButtons from "./LoginButtons";
 import CartBtn from "./CartBtn";
@@ -11,6 +11,8 @@ import CartBtn from "./CartBtn";
 const Header = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [scrolling, setScrolling] = useState<boolean>(false);
+  const theme = useTheme();
 
   const showNavHandler = () => {
     setShowNav(!showNav);
@@ -20,8 +22,34 @@ const Header = () => {
     setShowCart(!showCart);
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  };
+
   return (
-    <Box component="header">
+    <Box
+      component="header"
+      sx={{
+        position: "fixed",
+        zIndex: "99",
+        width: " 100%",
+        top: "0",
+        left: "50%",
+        transform: "translate(-50%)",
+        backgroundColor: !scrolling
+          ? "transparent"
+          : theme.palette.background.default,
+      }}
+    >
       <Container
         sx={{
           display: "flex",

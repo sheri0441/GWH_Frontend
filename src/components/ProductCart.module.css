@@ -1,0 +1,11 @@
+.productCartLink {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  padding: 1rem;
+  background-color: var(--clr-neutral);
+}
+
+.productCartLink:hover {
+  background-color: var(--clr-tertiary);
+}
