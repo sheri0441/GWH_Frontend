@@ -1,0 +1,10 @@
+.categoryCardLink {
+  position: relative;
+  color: white;
+  display: block;
+  max-height: 187px;
+}
+
+.categoryCardLink:hover > p {
+  display: flex !important;
+}

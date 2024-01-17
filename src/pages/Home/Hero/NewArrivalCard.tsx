@@ -2,10 +2,20 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "./NewArrivalCard.module.css";
 
-const NewArrivalCard = () => {
+const NewArrivalCard = ({
+  product: { imageURL, id, title, discount, price },
+}: {
+  product: {
+    imageURL: string;
+    id: string;
+    title: string;
+    discount: number;
+    price: number;
+  };
+}) => {
   const theme = useTheme();
   return (
-    <Link to={"/"} className={style.arrivalCard}>
+    <Link to={`./products/${id}`} className={style.arrivalCard}>
       <Box
         sx={{
           width: "127px",
@@ -16,11 +26,7 @@ const NewArrivalCard = () => {
           aspectRatio: "1 / 2",
         }}
       >
-        <img
-          style={{ width: "100%" }}
-          src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-          alt=""
-        />
+        <img style={{ width: "100%" }} src={imageURL} alt="" />
       </Box>
       <Box>
         <Typography
@@ -33,8 +39,7 @@ const NewArrivalCard = () => {
             WebkitBoxOrient: "vertical",
           }}
         >
-          Jon Hardy Women's Legends Naga Gold & Silver Dragon Station Chain
-          Braceleth
+          {title}
         </Typography>
         <Box
           sx={{
@@ -62,7 +67,7 @@ const NewArrivalCard = () => {
               width: "fit-content",
             }}
           >
-            695$
+            {discount ? price - discount / 100 : price}$
           </Typography>
         </Box>
       </Box>

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import IconSecondaryBtn from "./buttons/IconSecondaryBtn";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch } from "../app/hooks";
@@ -41,18 +41,20 @@ const ProductItemCart = ({ product }: Props) => {
       </Box>
       <Box>
         <Box sx={{ overflow: "hidden" }}>
-          <Typography
-            sx={{
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              fontSize: "0.75rem",
-              WebkitLineClamp: "2",
-              WebkitBoxOrient: "vertical",
-            }}
-          >
-            {product.name}
-          </Typography>
+          <Tooltip title={product.name}>
+            <Typography
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                fontSize: "0.75rem",
+                WebkitLineClamp: "2",
+                WebkitBoxOrient: "vertical",
+              }}
+            >
+              {product.name}
+            </Typography>
+          </Tooltip>
         </Box>
         <Box
           sx={{

@@ -37,7 +37,8 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
             overflowY: "scroll",
             display: "flex",
             flexDirection: "column",
-            height: "calc(100vh - 160px)",
+            minHeight: "calc(100vh - 160px)",
+            height: "calc(100dvh - 160px)  ",
             gap: 2,
             "&::-webkit-scrollbar": {
               width: "0.4rem",

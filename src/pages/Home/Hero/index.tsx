@@ -4,6 +4,15 @@ import NewArrivalCard from "./NewArrivalCard";
 import Pattern from "../../../assets/image/pattern.png";
 import Modal from "../../../assets/image/modal.png";
 
+const product = {
+  imageURL: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+  title:
+    "Jon Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Braceleth",
+  price: 22.5,
+  discount: 10,
+  id: "as1516",
+};
+
 const Hero = () => {
   const theme = useTheme();
   return (
@@ -44,7 +53,7 @@ const Hero = () => {
             View Products
           </PrimaryBtn>
         </Box>
-        <NewArrivalCard />
+        <NewArrivalCard product={product} />
       </Container>
       <Box
         sx={{

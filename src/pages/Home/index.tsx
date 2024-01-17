@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import Featured from "./Featured";
 import Hero from "./Hero";
-import Categories from "./Categories";
+import Categories from "./Category";
 
 const Home = () => {
   console.log(window.scroll());
