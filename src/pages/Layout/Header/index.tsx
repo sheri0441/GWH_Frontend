@@ -1,5 +1,5 @@
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { Box, Container, useScrollTrigger, useTheme } from "@mui/material";
+import { Box, Container, useTheme } from "@mui/material";
 import LogoLink from "../../../components/LogoLink";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import Navigation from "./Navigation";
