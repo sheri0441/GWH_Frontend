@@ -1,0 +1,3 @@
+.primaryBtn:hover {
+  background-color: var(--clr-secondary) !important;
+}

@@ -1,0 +1,11 @@
+.searchInput {
+  padding: 0.75rem;
+  border: 2px solid var(--clr-primary);
+  width: 100%;
+}
+
+.searchInput:focus,
+.searchInput:focus-visible {
+  border-color: var(--clr-secondary);
+  outline: none;
+}

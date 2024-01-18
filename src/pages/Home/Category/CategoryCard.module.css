@@ -5,6 +5,6 @@
   max-height: 187px;
 }
 
-.categoryCardLink:hover > p {
-  display: flex !important;
+.categoryCardLink:hover > div {
+  display: block;
 }

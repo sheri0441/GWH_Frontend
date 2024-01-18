@@ -58,7 +58,7 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
         </Box>
         <Box>
           <Divider sx={{ marginBottom: 1 }} />
-          <PrimaryBtn clickEvent={() => navigate("/checkout")}>
+          <PrimaryBtn clickEvent={() => navigate("/checkout")} padding="0.5rem">
             Checkout
           </PrimaryBtn>
         </Box>

@@ -49,7 +49,7 @@ const Hero = () => {
             marginTop: "3rem",
           }}
         >
-          <PrimaryBtn clickEvent={() => console.log("hello from products")}>
+          <PrimaryBtn isLink={true} link={"./products"} padding="0.5rem 1.5rem">
             View Products
           </PrimaryBtn>
         </Box>

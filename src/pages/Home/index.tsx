@@ -4,8 +4,6 @@ import Hero from "./Hero";
 import Categories from "./Category";
 
 const Home = () => {
-  console.log(window.scroll());
-
   return (
     <>
       <Hero />

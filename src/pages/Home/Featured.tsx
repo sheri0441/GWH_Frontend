@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import ProductCart from "../../components/ProductCart";
+import ProductCart from "../../components/ProductCard";
 import SectionHeader from "../../utils/SectionHeader";
 
 const product = {
@@ -24,8 +24,8 @@ const Featured = () => {
             md: "repeat(4, 1fr)",
           },
           gap: "1.125rem",
-          paddingTop: { sx: "1rem", md: "1.5rem" },
-          marginBottom: { sx: "2rem", md: "8rem" },
+          paddingTop: { xs: "1rem", md: "1.5rem" },
+          marginBottom: { xs: "2rem", md: "8rem" },
         }}
       >
         <ProductCart product={product} />

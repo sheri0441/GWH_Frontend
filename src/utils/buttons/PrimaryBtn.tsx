@@ -1,14 +1,25 @@
 import { Button, useTheme } from "@mui/material";
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import style from "./PrimaryBtn.module.css";
 
 interface Props {
+  padding: string;
   children: ReactNode;
-  clickEvent: Function;
+  clickEvent?: Function;
+  isLink?: boolean;
+  link?: string;
 }
 
-const PrimaryBtn = ({ children, clickEvent }: Props) => {
+const PrimaryBtn = ({
+  padding,
+  children,
+  clickEvent = () => {},
+  isLink = false,
+  link = "",
+}: Props) => {
   const theme = useTheme();
-  return (
+  return !isLink ? (
     <Button
       sx={{
         backgroundColor: `${theme.palette.primary.main}`,
@@ -16,7 +27,8 @@ const PrimaryBtn = ({ children, clickEvent }: Props) => {
         borderRadius: 0,
         width: "100%",
         marginTop: "0",
-        padding: "0.5rem 1rem",
+        padding: padding,
+        position: "relative",
         "&:hover": {
           backgroundColor: `${theme.palette.secondary.main}`,
         },
@@ -25,6 +37,23 @@ const PrimaryBtn = ({ children, clickEvent }: Props) => {
     >
       {children}
     </Button>
+  ) : (
+    <Link
+      style={{
+        backgroundColor: `${theme.palette.primary.main}`,
+        color: theme.palette.background.default,
+        borderRadius: 0,
+        width: "100%",
+        marginTop: "0",
+        padding: padding,
+        textDecoration: "none",
+        position: "relative",
+      }}
+      className={style.primaryBtn}
+      to={link}
+    >
+      {children}
+    </Link>
   );
 };
 

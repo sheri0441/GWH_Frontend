@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import style from "./ProductCart.module.css";
+import style from "./ProductCard.module.css";
 import { Box, Tooltip, Typography, useTheme } from "@mui/material";
 
 const ProductCart = ({
-  product: { imageURL, id, title, discount, price },
+  product: { image, id, title, discount, price },
 }: {
   product: {
-    imageURL: string;
-    id: string;
+    image: string;
+    id: number;
     title: string;
-    discount: number;
+    discount?: number;
     price: number;
   };
 }) => {
@@ -20,10 +20,17 @@ const ProductCart = ({
       <Box
         sx={{
           backgroundColor: theme.palette.background.default,
-          padding: { xs: "0.5rem 1rem", md: "1rem 1.5rem" },
+          padding: {
+            xs: "0.5rem 1rem",
+            md: "1rem 1.5rem",
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          },
         }}
       >
-        <img src={imageURL} alt="" style={{ width: "100%" }} />
+        <img src={image} alt="" style={{ width: "100%" }} />
       </Box>
       <Box
         sx={{

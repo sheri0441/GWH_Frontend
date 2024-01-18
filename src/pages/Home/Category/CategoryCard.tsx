@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "./CategoryCard.module.css";
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 const CategoryCard = ({
   category,
@@ -21,23 +21,47 @@ const CategoryCard = ({
         src={category.imageURL}
         alt=""
       />
-      <Typography
+      <Box
         sx={{
           width: "100%",
           height: "100%",
           position: "absolute",
           top: "0",
           left: "0",
-          color: "#fff",
-          background: `linear-gradient(to top, ${theme.palette.secondary.main}, ${theme.palette.background.default})`,
           display: "none",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: { sx: "1.5rem", md: "2rem" },
         }}
       >
-        {category.name}
-      </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            color: "#fff",
+            background: `linear-gradient(to top, ${theme.palette.secondary.main}, ${theme.palette.background.default})`,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: { sx: "1.5rem", md: "2rem" },
+            opacity: "0.5",
+          }}
+        ></Box>
+        <Typography
+          sx={{
+            width: "100%",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            height: "100%",
+            color: "#fff",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: { sx: "1.5rem", md: "2rem" },
+            textTransform: "uppercase",
+          }}
+        >
+          {category.name}
+        </Typography>
+      </Box>
     </Link>
   );
 };

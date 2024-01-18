@@ -10,7 +10,7 @@ const category = {
 
 const Categories = () => {
   return (
-    <Box sx={{ paddingBottom: "4rem" }}>
+    <Box sx={{ paddingBottom: "4rem", marginTop: "4rem" }}>
       <SectionHeader>Categories</SectionHeader>
       <Box
         sx={{

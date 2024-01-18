@@ -5,6 +5,7 @@ import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { Store } from "./app/Store";
+import ProductsPage from "./pages/Products";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
+                <Route path="products" element={<ProductsPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
