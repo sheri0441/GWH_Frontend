@@ -3,12 +3,12 @@ import ProductCart from "../../components/ProductCard";
 import SectionHeader from "../../utils/SectionHeader";
 
 const product = {
-  imageURL: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+  image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
   title:
     "Jon Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Braceleth",
   price: 22.5,
   discount: 10,
-  id: "as1516",
+  id: 15645,
 };
 
 const Featured = () => {
