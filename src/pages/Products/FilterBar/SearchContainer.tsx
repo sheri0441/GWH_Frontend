@@ -1,4 +1,4 @@
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import style from "./SearchContainer.module.css";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import CloseIcon from "@mui/icons-material/Close";
@@ -28,7 +28,6 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
         display: showSearch ? "block" : "none",
       }}
     >
-      {/* <Container> */}
       <Box
         sx={{
           display: "flex",
@@ -88,7 +87,6 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
           </Box>
         </Link>
       </Box>
-      {/* </Container> */}
     </Box>
   );
 };
