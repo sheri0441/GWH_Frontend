@@ -23,14 +23,20 @@ const ProductCart = ({
           padding: {
             xs: "0.5rem 1rem",
             md: "1rem 1.5rem",
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
           },
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: { xs: "250px", sm: "300px" },
+          overflow: "hidden",
         }}
       >
-        <img src={image} alt="" style={{ width: "100%" }} />
+        <img
+          src={image}
+          alt={title}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
       </Box>
       <Box
         sx={{
