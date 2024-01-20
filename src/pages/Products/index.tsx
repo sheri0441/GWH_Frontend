@@ -2,9 +2,16 @@ import { Box, Container, Typography } from "@mui/material";
 import FilterBar from "./FilterBar";
 import ProductsList from "./ProductsList";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const ProductsPage = () => {
   const [product, setProduct] = useState([]);
+
+  const { num } = useParams();
+
+  const currentPage = num || "1";
+
+  console.log(currentPage);
 
   const fetchData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -30,7 +37,7 @@ const ProductsPage = () => {
           Products
         </Typography>
         <FilterBar />
-        <ProductsList productList={product} />
+        <ProductsList productList={product} currentPage={currentPage} />
       </Box>
     </Container>
   );

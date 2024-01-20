@@ -2,7 +2,6 @@ import { Box, Divider } from "@mui/material";
 import OverLayer from "../../../utils/OverLayer";
 import ProductItemCart from "../../../utils/ProductItemCart";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 
@@ -14,8 +13,8 @@ interface Props {
 const ShopCart = ({ showCart, showCartHandler }: Props) => {
   const cart = useAppSelector((state) => state.login.user.cart);
 
-  const theme = useTheme();
   const navigate = useNavigate();
+
   return (
     <OverLayer
       showOverLayer={showCart}
@@ -37,19 +36,9 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
             overflowY: "scroll",
             display: "flex",
             flexDirection: "column",
-            minHeight: "calc(100vh - 160px)",
+            minHeight: "calc(100svh - 160px)",
             height: "calc(100dvh - 160px)  ",
             gap: 2,
-            "&::-webkit-scrollbar": {
-              width: "0.4rem",
-            },
-            "&::-webkit-scrollbar-track": {
-              "-webkit-box-shadow": "none",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: theme.palette.secondary.light,
-              outline: "none",
-            },
           }}
         >
           {cart.map((product) => (

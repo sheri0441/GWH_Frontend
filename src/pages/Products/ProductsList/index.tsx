@@ -1,14 +1,6 @@
-import { Box } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import ProductCart from "../../../components/ProductCard";
-
-// const product = {
-//   imageURL: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-//   title:
-//     "Jon Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Braceleth",
-//   price: 22.5,
-//   discount: 10,
-//   id: "as1516",
-// };
+import { Link } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -21,9 +13,11 @@ interface Product {
 
 interface Props {
   productList: Product[];
+  currentPage: string;
 }
 
-const ProductsList = ({ productList }: Props) => {
+const ProductsList = ({ productList, currentPage }: Props) => {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -44,6 +38,30 @@ const ProductsList = ({ productList }: Props) => {
         {productList.map((product) => (
           <ProductCart key={product.id} product={product} />
         ))}
+      </Box>
+      <Box
+        sx={{
+          marginInline: "auto",
+          width: "fit-content",
+          marginTop: "1.5rem",
+        }}
+      >
+        <Link
+          to={"/product/1"}
+          style={{ textDecoration: "none", color: "#000" }}
+        >
+          <Typography
+            sx={{
+              textDecoration: "underline",
+              "&:hover": {
+                color: theme.palette.primary.main,
+                textDecoration: "underline",
+              },
+            }}
+          >
+            1
+          </Typography>
+        </Link>
       </Box>
     </Box>
   );

@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
-import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
+import SecondaryBtn from "../../../../utils/buttons/SecondaryBtn";
+import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
+import RadioCategory from "./radioCategory";
 
 interface Props {
   showFilter: boolean;
@@ -24,6 +25,14 @@ const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
         zIndex: 99,
       }}
     >
+      <Box>
+        <Typography sx={{ fontWeight: "500" }}>Category</Typography>
+        <Box>
+          <RadioCategory useFor="mens" />
+          <RadioCategory useFor="mens" />
+          <RadioCategory useFor="mens" />
+        </Box>
+      </Box>
       <Box
         sx={{
           display: "flex",

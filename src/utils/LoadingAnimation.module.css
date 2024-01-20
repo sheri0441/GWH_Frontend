@@ -1,0 +1,20 @@
+.svg {
+  width: 100%;
+  transform-origin: center;
+  animation: rotate4 2s linear infinite;
+}
+
+circle {
+  fill: none;
+  stroke: hsl(214, 97%, 59%);
+  stroke-width: 6;
+  stroke-dasharray: 90, 200;
+  stroke-dashoffset: -35px;
+  stroke-linecap: round;
+}
+
+@keyframes rotate4 {
+  100% {
+    transform: rotate(360deg);
+  }
+}

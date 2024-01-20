@@ -11,9 +11,10 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchContainer from "./SearchContainer";
 import FilterContainer from "./FilterContainer";
+import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
 
 const FilterBar = () => {
   const theme = useTheme();
@@ -28,6 +29,10 @@ const FilterBar = () => {
   const showFilterHandler = () => {
     setShowFilter(!showFilter);
   };
+
+  useEffect(() => {
+    bodyOverflowHandler(showSearch);
+  }, [showSearch]);
 
   return (
     <Box

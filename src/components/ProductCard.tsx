@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "./ProductCard.module.css";
-import { Box, Tooltip, Typography, useTheme } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 
 const ProductCart = ({
   product: { image, id, title, discount, price },
@@ -13,13 +13,11 @@ const ProductCart = ({
     price: number;
   };
 }) => {
-  const theme = useTheme();
-
   return (
     <Link to={`./products/${id}`} className={style.productCartLink}>
       <Box
         sx={{
-          backgroundColor: theme.palette.background.default,
+          backgroundColor: "white",
           padding: {
             xs: "0.5rem 1rem",
             md: "1rem 1.5rem",

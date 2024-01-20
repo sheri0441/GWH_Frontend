@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import ShopCart from "./ShopCart";
 import LoginButtons from "./LoginButtons";
 import CartBtn from "./CartBtn";
+import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
 
 const Header = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
@@ -21,6 +22,14 @@ const Header = () => {
   const showCartHandler = () => {
     setShowCart(!showCart);
   };
+
+  useEffect(() => {
+    bodyOverflowHandler(showCart);
+  }, [showCart]);
+
+  useEffect(() => {
+    bodyOverflowHandler(showNav);
+  }, [showNav]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
