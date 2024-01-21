@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import SecondaryBtn from "../../../../utils/buttons/SecondaryBtn";
 import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
-import RadioCategory from "./radioCategory";
+import RadioCategory from "./RadioCategory";
 
 interface Props {
   showFilter: boolean;
