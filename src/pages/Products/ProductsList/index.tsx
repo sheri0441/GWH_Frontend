@@ -18,6 +18,8 @@ interface Props {
 
 const ProductsList = ({ productList, currentPage }: Props) => {
   const theme = useTheme();
+  console.log(currentPage);
+
   return (
     <Box
       sx={{
