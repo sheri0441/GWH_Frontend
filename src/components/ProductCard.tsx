@@ -42,7 +42,8 @@ const ProductCart = ({
           flexDirection: "column",
           justifyContent: "center",
           marginInline: "auto",
-          marginTop: "0.75rem",
+          marginTop: "1rem",
+          width: "100%",
         }}
       >
         <Tooltip title={title} arrow>
@@ -51,12 +52,13 @@ const ProductCart = ({
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "-webkit-box",
-              fontSize: "0.5rem",
+              fontSize: "0.75rem",
               WebkitLineClamp: "2",
               WebkitBoxOrient: "vertical",
               textAlign: "center",
               paddingInline: { xs: "0.5rem", sm: "1rem", md: "1.5rem" },
               marginInline: "auto",
+              width: "100%",
             }}
           >
             {title}
