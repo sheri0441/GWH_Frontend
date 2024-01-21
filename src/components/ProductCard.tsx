@@ -51,7 +51,7 @@ const ProductCart = ({
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "-webkit-box",
-              fontSize: "1rem",
+              fontSize: "0.5rem",
               WebkitLineClamp: "2",
               WebkitBoxOrient: "vertical",
               textAlign: "center",
