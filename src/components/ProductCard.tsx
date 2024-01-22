@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import style from "./ProductCard.module.css";
 import { Box, Tooltip, Typography } from "@mui/material";
+import ExtractImage from "../utils/ExtractImage";
 
 const ProductCart = ({
-  product: { image, id, title, discount, price },
+  product: { images, id, title, discount, price },
 }: {
   product: {
-    image: string;
+    images: string[];
     id: number;
     title: string;
     discount?: number;
@@ -31,7 +32,7 @@ const ProductCart = ({
         }}
       >
         <img
-          src={image}
+          src={ExtractImage(images[0])}
           alt={title}
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />

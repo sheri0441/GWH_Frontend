@@ -39,6 +39,11 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
     setInputValue(e.target.value);
   };
 
+  const closeSearch = () => {
+    showSearchHandler();
+    setInputValue("");
+  };
+
   //Remove the following code later -- Start
   const fetchData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -100,10 +105,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
               clickEvent={() => console.log("hello from close")}
             />
           </Box>
-          <IconSecondaryBtn
-            Type={CloseIcon}
-            clickEvent={() => showSearchHandler()}
-          />
+          <IconSecondaryBtn Type={CloseIcon} clickEvent={closeSearch} />
         </Box>
         <Box
           sx={{
@@ -117,6 +119,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
               <Box
                 sx={{
                   width: "3rem",
+                  marginInline: "auto",
                 }}
               >
                 <LoadingAnimation />

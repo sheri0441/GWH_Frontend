@@ -1,6 +1,6 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import ProductCart from "../../../components/ProductCard";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -8,17 +8,33 @@ interface Product {
   price: number;
   description: string;
   category: string;
-  image: string;
+  images: string[];
 }
 
 interface Props {
   productList: Product[];
-  currentPage: string;
+  numberOfPages: number | undefined;
+  currentPage: number;
 }
 
-const ProductsList = ({ productList, currentPage }: Props) => {
-  const theme = useTheme();
-  console.log(currentPage);
+const ProductsList = ({
+  productList,
+  numberOfPages = 0,
+  currentPage,
+}: Props) => {
+  const navigate = useNavigate();
+
+  let arrayOfPages = [];
+
+  for (let i = 0; i < numberOfPages; i++) {
+    arrayOfPages.push(i + 1);
+  }
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    navigate(`/products/${value}`);
+  };
 
   return (
     <Box
@@ -37,33 +53,23 @@ const ProductsList = ({ productList, currentPage }: Props) => {
           gap: { xs: "1rem", md: "1.5rem" },
         }}
       >
-        {productList.map((product) => (
+        {productList?.map((product) => (
           <ProductCart key={product.id} product={product} />
         ))}
       </Box>
+
       <Box
-        sx={{
-          marginInline: "auto",
-          width: "fit-content",
-          marginTop: "1.5rem",
-        }}
+        sx={{ marginInline: "auto", width: "fit-content", marginTop: "1rem" }}
       >
-        <Link
-          to={"/product/1"}
-          style={{ textDecoration: "none", color: "#000" }}
-        >
-          <Typography
-            sx={{
-              textDecoration: "underline",
-              "&:hover": {
-                color: theme.palette.primary.main,
-                textDecoration: "underline",
-              },
-            }}
-          >
-            1
-          </Typography>
-        </Link>
+        <Pagination
+          page={currentPage}
+          count={numberOfPages}
+          variant="outlined"
+          shape="rounded"
+          size="large"
+          onChange={handleChange}
+          color="secondary"
+        />
       </Box>
     </Box>
   );

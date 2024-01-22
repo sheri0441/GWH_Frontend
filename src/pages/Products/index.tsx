@@ -3,25 +3,46 @@ import FilterBar from "./FilterBar";
 import ProductsList from "./ProductsList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import LoadingAnimation from "../../utils/LoadingAnimation";
+import ErrorMessage from "../../utils/ErrorMessage";
 
 const ProductsPage = () => {
-  const [product, setProduct] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState<number>();
+  const [currentPageProducts, setCurrentPageProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const { num } = useParams();
 
   const currentPage = num || "1";
 
-  console.log(currentPage);
-
   const fetchData = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
+    const response = await fetch("https://api.escuelajs.co/api/v1/products");
     const result = await response.json();
-    setProduct(result);
+
+    if (response.ok) {
+      const chunkSize = 12;
+
+      const chunks = [];
+
+      for (let i = 0; i < result.length; i += chunkSize) {
+        const chunk = result.slice(i, i + chunkSize);
+        chunks.push(chunk);
+      }
+
+      setNumberOfPages(chunks.length);
+
+      setCurrentPageProducts(chunks[Number(currentPage) - 1]);
+    } else {
+      setHasError(true);
+    }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <Container>
@@ -37,7 +58,21 @@ const ProductsPage = () => {
           Products
         </Typography>
         <FilterBar />
-        <ProductsList productList={product} currentPage={currentPage} />
+        {isLoading ? (
+          <Box
+            sx={{ width: "100px", marginInline: "auto", marginTop: "100px" }}
+          >
+            <LoadingAnimation />
+          </Box>
+        ) : hasError ? (
+          <ErrorMessage />
+        ) : (
+          <ProductsList
+            productList={currentPageProducts}
+            numberOfPages={numberOfPages}
+            currentPage={Number(num)}
+          />
+        )}
       </Box>
     </Container>
   );

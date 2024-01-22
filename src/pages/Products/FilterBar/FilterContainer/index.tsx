@@ -27,10 +27,21 @@ const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
     >
       <Box>
         <Typography sx={{ fontWeight: "500" }}>Category</Typography>
-        <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.5rem 2rem",
+
+            paddingLeft: "1rem",
+            marginBottom: "1rem",
+          }}
+          component={"form"}
+          onChange={(e) => console.log(e.target)}
+        >
           <RadioCategory useFor="mens" />
-          <RadioCategory useFor="mens" />
-          <RadioCategory useFor="mens" />
+          <RadioCategory useFor="female" />
+          <RadioCategory useFor="trans" />
         </Box>
       </Box>
       <Box
