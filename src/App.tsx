@@ -68,7 +68,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="products/">
                   <Route index element={<ProductsPage />} />
-                  <Route path="page/:num" element={<ProductsPage />} />
+                  <Route path=":num" element={<ProductsPage />} />
                   {/* <Route path="search=:search" element={<SearchPage />} /> */}
                 </Route>
               </Route>
