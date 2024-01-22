@@ -19,10 +19,6 @@ const ProductCart = ({
       <Box
         sx={{
           backgroundColor: "white",
-          padding: {
-            xs: "0.5rem 1rem",
-            md: "1rem 1.5rem",
-          },
           width: "100%",
           display: "flex",
           justifyContent: "center",
