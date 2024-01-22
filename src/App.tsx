@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { Store } from "./app/Store";
 import ProductsPage from "./pages/Products";
+import SearchPage from "./pages/SearchPage";
 
 const theme = createTheme({
   components: {
@@ -67,7 +68,8 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="products/">
                   <Route index element={<ProductsPage />} />
-                  <Route path=":num" element={<ProductsPage />} />
+                  <Route path="page/:num" element={<ProductsPage />} />
+                  {/* <Route path="search=:search" element={<SearchPage />} /> */}
                 </Route>
               </Route>
             </Routes>

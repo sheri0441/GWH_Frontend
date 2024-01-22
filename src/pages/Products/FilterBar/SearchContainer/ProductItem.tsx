@@ -1,16 +1,17 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import ExtractImage from "../../../../utils/ExtractImage";
 
 interface Props {
   product: {
-    image: string;
+    images: string[];
     title: string;
     price: number;
     id: number;
   };
 }
 
-const ProductItem = ({ product: { image, title, price, id } }: Props) => {
+const ProductItem = ({ product: { images, title, price, id } }: Props) => {
   const theme = useTheme();
 
   return (
@@ -32,10 +33,14 @@ const ProductItem = ({ product: { image, title, price, id } }: Props) => {
             maxWidth: "50px",
             aspectRatio: "1/1",
             backgroundColor: "white",
-            padding: "0.25rem",
+            objectFit: "contain",
           }}
         >
-          <img style={{ width: "100%" }} src={image} alt="" />
+          <img
+            style={{ width: "100%" }}
+            src={ExtractImage(images[0])}
+            alt={title}
+          />
         </Box>
         <Box sx={{ maxWidth: "300px" }}>
           <Typography sx={{ color: theme.palette.primary.main }}>

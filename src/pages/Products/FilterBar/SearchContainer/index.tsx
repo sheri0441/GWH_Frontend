@@ -7,6 +7,8 @@ import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
 import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
 import LoadingAnimation from "../../../../utils/LoadingAnimation";
+import ErrorMessage from "../../../../utils/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   showSearch: boolean;
@@ -14,28 +16,31 @@ interface Props {
 }
 
 interface Product {
-  image: string;
+  id: number;
   title: string;
   price: number;
-  id: number;
+  description: string;
+  images: string[];
+  creationAt: string;
+  updatedAt: string;
+  category: {
+    id: number;
+    name: string;
+    image: string;
+    creationAt: string;
+    updatedAt: string;
+  };
 }
 
 const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [product, setProduct] = useState<Product[]>([]); // remove this line later
-
-  const loadingAnimation = () => {
-    setTimeout(() => {
-      console.log("hello from 2");
-      setLoading(false);
-    }, 2000);
-  };
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [product, setProduct] = useState<Product[]>([]);
 
   const inputValueHandler = (e: { target: { value: string } }) => {
-    setLoading(true);
-    loadingAnimation();
     setInputValue(e.target.value);
   };
 
@@ -44,18 +49,23 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
     setInputValue("");
   };
 
-  //Remove the following code later -- Start
   const fetchData = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const result = await response.json();
-    setProduct(result);
+    setLoading(true);
+    const response = await fetch("https://api.escuelajs.co/api/v1/products");
+    const result: Product[] = await response.json();
+
+    if (response.ok) {
+      const newResult = result.filter((pro) => pro.title.includes(inputValue));
+      setProduct(newResult);
+    } else {
+      setHasError(true);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  //End
+  }, [inputValue]);
 
   return (
     <Box
@@ -102,7 +112,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
             />
             <IconSecondaryBtn
               Type={SearchIcon}
-              clickEvent={() => console.log("hello from close")}
+              clickEvent={() => navigate(`/products/?search=${inputValue}`)}
             />
           </Box>
           <IconSecondaryBtn Type={CloseIcon} clickEvent={closeSearch} />
@@ -124,7 +134,9 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
               >
                 <LoadingAnimation />
               </Box>
-            ) : (
+            ) : hasError ? (
+              <ErrorMessage />
+            ) : product.length !== 0 ? (
               <>
                 <Box
                   sx={{
@@ -145,13 +157,32 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
                     }
                   })}
                 </Box>
-                <PrimaryBtn
-                  padding="0.75rem 1rem"
-                  clickEvent={() => console.log("hello from view all")}
-                >
-                  <Typography>View All</Typography>
-                </PrimaryBtn>
+                {product.length > 5 && (
+                  <PrimaryBtn
+                    padding="0.75rem 1rem"
+                    clickEvent={() =>
+                      navigate(`/products/?search=${inputValue}`)
+                    }
+                  >
+                    <Typography>View All</Typography>
+                  </PrimaryBtn>
+                )}
               </>
+            ) : (
+              <Box
+                sx={{
+                  width: "fit-cotent",
+                  marginInline: "auto",
+                }}
+              >
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  Such Product Not Found
+                </Typography>
+              </Box>
             ))}
         </Box>
       </Container>
