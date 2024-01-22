@@ -30,10 +30,14 @@ const ProductsList = ({
     arrayOfPages.push(i + 1);
   }
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (event: React.ChangeEvent<unknown>) => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    navigate(`/products/${value}`);
+    navigate(
+      `/products/${
+        event.target ? (event.target as HTMLButtonElement).innerText : ""
+      }`
+    );
   };
 
   return (
