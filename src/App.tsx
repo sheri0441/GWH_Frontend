@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { Store } from "./app/Store";
 import ProductsPage from "./pages/Products";
-import SearchPage from "./pages/SearchPage";
+// import SearchPage from "./pages/SearchPage";
 
 const theme = createTheme({
   components: {
