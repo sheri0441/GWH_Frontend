@@ -48,6 +48,8 @@ const PrimaryBtn = ({
         padding: padding,
         textDecoration: "none",
         position: "relative",
+        display: "block",
+        textAlign: "center",
       }}
       className={style.primaryBtn}
       to={link}

@@ -1,42 +1,26 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Container, Typography, useTheme } from "@mui/material";
-import style from "./index.module.css";
-import IconSecondaryBtn from "../../../../utils/buttons/IconSecondaryBtn";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import ProductItem from "./ProductItem";
-import { useEffect, useState } from "react";
-import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
-import LoadingAnimation from "../../../../utils/LoadingAnimation";
-import ErrorMessage from "../../../../utils/ErrorMessage";
-import { useNavigate } from "react-router-dom";
+import style from "./index.module.css";
+import { Product } from "../../../model/Product";
+import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
+import LoadingAnimation from "../../../utils/LoadingAnimation";
+import ErrorMessage from "../../../utils/ErrorMessage";
+import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 
 interface Props {
   showSearch: boolean;
   showSearchHandler: Function;
 }
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  images: string[];
-  creationAt: string;
-  updatedAt: string;
-  category: {
-    id: number;
-    name: string;
-    image: string;
-    creationAt: string;
-    updatedAt: string;
-  };
-}
-
 const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [inputValue, setInputValue] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [product, setProduct] = useState<Product[]>([]);
 
@@ -50,21 +34,21 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
   };
 
   const fetchData = async () => {
-    setLoading(true);
-    const response = await fetch("https://api.escuelajs.co/api/v1/products");
+    setIsLoading(true);
+    const response = await fetch(`${import.meta.env.VITE_API}products`);
     const result: Product[] = await response.json();
 
+    setIsLoading(false);
     if (response.ok) {
       const newResult = result.filter((pro) => pro.title.includes(inputValue));
       setProduct(newResult);
     } else {
       setHasError(true);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
-    fetchData();
+    inputValue.length > 0 && fetchData();
   }, [inputValue]);
 
   return (
@@ -112,7 +96,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
             />
             <IconSecondaryBtn
               Type={SearchIcon}
-              clickEvent={() => navigate(`/products/?search=${inputValue}`)}
+              clickEvent={() => navigate(`/products/search/${inputValue}`)}
             />
           </Box>
           <IconSecondaryBtn Type={CloseIcon} clickEvent={closeSearch} />
@@ -125,7 +109,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
           }}
         >
           {inputValue &&
-            (loading ? (
+            (isLoading ? (
               <Box
                 sx={{
                   width: "3rem",
@@ -161,7 +145,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
                   <PrimaryBtn
                     padding="0.75rem 1rem"
                     clickEvent={() =>
-                      navigate(`/products/?search=${inputValue}`)
+                      navigate(`/products/search/${inputValue}`)
                     }
                   >
                     <Typography>View All</Typography>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   List,
@@ -9,12 +10,11 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
-import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
-import { useEffect, useState } from "react";
 import SearchContainer from "./SearchContainer";
 import FilterContainer from "./FilterContainer";
-import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
+import IconSecondaryBtn from "../../utils/buttons/IconSecondaryBtn";
+import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
+import bodyOverflowHandler from "../../utils/bodyOverflowHandler";
 
 const FilterBar = () => {
   const theme = useTheme();

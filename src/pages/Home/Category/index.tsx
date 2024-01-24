@@ -1,14 +1,33 @@
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import SectionHeader from "../../../utils/SectionHeader";
 import CategoryCard from "./CategoryCard";
-
-const category = {
-  name: "pants",
-  imageURL: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-  id: "1254sag5",
-};
+import ErrorMessage from "../../../utils/ErrorMessage";
+import LoadingAnimation from "../../../utils/LoadingAnimation";
+import { Category } from "../../../model/Category";
 
 const Categories = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [categoryList, setCategoryList] = useState<Category[]>([]);
+  const [hasError, setHasError] = useState<boolean>(false);
+
+  const fetchCategory = async () => {
+    setIsLoading(true);
+    const response = await fetch(`${import.meta.env.VITE_API}categories`);
+    const result = await response.json();
+
+    if (response.ok) {
+      setCategoryList(result);
+    } else {
+      setHasError(true);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
   return (
     <Box sx={{ paddingBottom: "4rem", marginTop: "4rem" }}>
       <SectionHeader>Categories</SectionHeader>
@@ -20,10 +39,17 @@ const Categories = () => {
           paddingTop: "2rem",
         }}
       >
-        <CategoryCard category={category} />
-        <CategoryCard category={category} />
-        <CategoryCard category={category} />
-        <CategoryCard category={category} />
+        {isLoading ? (
+          <Box sx={{ display: "block", width: "20px", marginInline: "auto" }}>
+            <LoadingAnimation />
+          </Box>
+        ) : hasError ? (
+          <ErrorMessage />
+        ) : (
+          categoryList.map((cat) => {
+            return <CategoryCard key={cat.id} category={cat} />;
+          })
+        )}
       </Box>
     </Box>
   );

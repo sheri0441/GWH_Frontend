@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../utils/LoadingAnimation";
 import ErrorMessage from "../../utils/ErrorMessage";
 
-const ProductsPage = () => {
+const ProductPageLayout = () => {
   const [numberOfPages, setNumberOfPages] = useState<number>();
   const [currentPageProducts, setCurrentPageProducts] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -78,4 +78,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default ProductPageLayout;

@@ -1,20 +1,51 @@
+import { useEffect, useState } from "react";
 import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Product } from "../../../model/Product";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import NewArrivalCard from "./NewArrivalCard";
 import Pattern from "../../../assets/image/pattern.png";
 import Modal from "../../../assets/image/modal.png";
 
-const product = {
-  imageURL: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-  title:
-    "Jon Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Braceleth",
-  price: 22.5,
-  discount: 10,
-  id: "as1516",
-};
-
 const Hero = () => {
   const theme = useTheme();
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [newArrival, setNewArrival] = useState<Product>({
+    id: 0,
+    title: "",
+    price: 0,
+    description: "",
+    images: [],
+    creationAt: "",
+    updatedAt: "",
+    category: {
+      id: 0,
+      name: " ",
+      image: " ",
+      creationAt: " ",
+      updatedAt: " ",
+    },
+  });
+  const [hasError, setHasError] = useState<boolean>(false);
+
+  const fetchNewArrivalProduct = async () => {
+    setIsLoading(true);
+    const response = await fetch(`${import.meta.env.VITE_API}products`);
+    const result = await response.json();
+
+    setIsLoading(false);
+
+    if (response.ok) {
+      setNewArrival(result[0]);
+    } else {
+      setHasError(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchNewArrivalProduct();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -49,11 +80,11 @@ const Hero = () => {
             marginTop: "3rem",
           }}
         >
-          <PrimaryBtn isLink={true} link={"./products"} padding="0.5rem 1.5rem">
+          <PrimaryBtn isLink={true} link={"./products"} padding=" 1rem">
             View Products
           </PrimaryBtn>
         </Box>
-        <NewArrivalCard product={product} />
+        {!isLoading && !hasError && <NewArrivalCard product={newArrival} />}
       </Container>
       <Box
         sx={{

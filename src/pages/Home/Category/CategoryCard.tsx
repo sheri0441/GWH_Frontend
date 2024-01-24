@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 import style from "./CategoryCard.module.css";
 import { Box, Typography, useTheme } from "@mui/material";
+import { Category } from "../../../model/category";
+import ExtractImage from "../../../utils/ExtractImage";
 
 const CategoryCard = ({
-  category,
+  category: { image, id, name },
 }: {
-  category: { imageURL: string; name: string; id: string };
+  category: Category;
 }) => {
   const theme = useTheme();
   return (
-    <Link
-      className={style.categoryCardLink}
-      to={`./products/category/${category.name}`}
-    >
+    <Link className={style.categoryCardLink} to={`./products/category/${id}`}>
       <img
         style={{
           width: "100%",
           height: "100%",
         }}
-        src={category.imageURL}
-        alt=""
+        src={ExtractImage(image)}
+        alt={name}
       />
       <Box
         sx={{
@@ -59,7 +58,7 @@ const CategoryCard = ({
             textTransform: "uppercase",
           }}
         >
-          {category.name}
+          {name}
         </Typography>
       </Box>
     </Link>

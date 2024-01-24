@@ -1,19 +1,18 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "./NewArrivalCard.module.css";
+import { Product } from "../../../model/Product";
+import ExtractImage from "../../../utils/ExtractImage";
 
 const NewArrivalCard = ({
-  product: { imageURL, id, title, discount, price },
+  product: { images, id, title, price },
+  discount = 0,
 }: {
-  product: {
-    imageURL: string;
-    id: string;
-    title: string;
-    discount: number;
-    price: number;
-  };
+  product: Product;
+  discount?: number;
 }) => {
   const theme = useTheme();
+
   return (
     <Link to={`./products/${id}`} className={style.arrivalCard}>
       <Box
@@ -22,11 +21,13 @@ const NewArrivalCard = ({
           backgroundColor: theme.palette.background.default,
           display: "flex",
           alignItems: "center",
-          paddingInline: "0.5rem",
-          aspectRatio: "1 / 2",
         }}
       >
-        <img style={{ width: "100%" }} src={imageURL} alt="" />
+        <img
+          style={{ width: "100%" }}
+          src={ExtractImage(images[0])}
+          alt={title}
+        />
       </Box>
       <Box>
         <Typography

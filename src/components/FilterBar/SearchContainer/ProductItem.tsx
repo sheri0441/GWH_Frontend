@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import ExtractImage from "../../../../utils/ExtractImage";
+import ExtractImage from "../../../utils/ExtractImage";
 
 interface Props {
   product: {

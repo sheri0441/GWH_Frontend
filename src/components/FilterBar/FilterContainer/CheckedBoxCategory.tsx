@@ -1,10 +1,15 @@
 import { Box, useTheme } from "@mui/material";
-// import { useState } from "react";
 
-const RadioCategory = ({ useFor }: { useFor: string }) => {
+const CheckedBoxCategory = ({
+  useFor,
+  changeHandler,
+  checkedValues,
+}: {
+  useFor: string;
+  changeHandler: Function;
+  checkedValues: string[];
+}) => {
   const theme = useTheme();
-
-  // const [checked, setChecked] = useState<boolean>(false);
 
   return (
     <>
@@ -18,6 +23,7 @@ const RadioCategory = ({ useFor }: { useFor: string }) => {
             fontWeight: 500,
             position: "relative",
             textTransform: "capitalize",
+            marginLeft: "1rem",
           },
           "&>label:before": {
             content: '" "',
@@ -29,23 +35,21 @@ const RadioCategory = ({ useFor }: { useFor: string }) => {
             width: "10px",
             height: "10px",
             backgroundColor: theme.palette.background.default,
-            // backgroundColor: checked
-            //   ? theme.palette.primary.main
-            //   : theme.palette.background.default,
             border: `1px solid ${theme.palette.primary.main}`,
           },
-          "&>input:checked>label:before": {
+          "&>input:checked + label:before": {
             backgroundColor: theme.palette.primary.main,
           },
         }}
       >
         <input
-          type="radio"
+          type="checkbox"
           name="category"
           value={useFor}
           id={useFor}
-          // checked={checked}
-          // onChange={() => setChecked(!checked)}
+          checked={checkedValues.includes(useFor)}
+          onChange={(e) => changeHandler(e)}
+          // className={style.filterCheckBoxOption}
         />
         <label htmlFor={useFor}>{useFor}</label>
       </Box>
@@ -53,4 +57,4 @@ const RadioCategory = ({ useFor }: { useFor: string }) => {
   );
 };
 
-export default RadioCategory;
+export default CheckedBoxCategory;

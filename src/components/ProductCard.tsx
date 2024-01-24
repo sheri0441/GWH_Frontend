@@ -2,17 +2,14 @@ import { Link } from "react-router-dom";
 import style from "./ProductCard.module.css";
 import { Box, Tooltip, Typography } from "@mui/material";
 import ExtractImage from "../utils/ExtractImage";
+import { Product } from "../model/Product";
 
 const ProductCart = ({
-  product: { images, id, title, discount, price },
+  product: { images, id, title, price },
+  discount = 0,
 }: {
-  product: {
-    images: string[];
-    id: number;
-    title: string;
-    discount?: number;
-    price: number;
-  };
+  product: Product;
+  discount?: number;
 }) => {
   return (
     <Link to={`./products/${id}`} className={style.productCartLink}>
@@ -49,7 +46,7 @@ const ProductCart = ({
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "-webkit-box",
-              fontSize: "0.75rem",
+              fontSize: "1rem",
               WebkitLineClamp: "2",
               WebkitBoxOrient: "vertical",
               textAlign: "center",

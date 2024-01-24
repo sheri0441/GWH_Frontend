@@ -1,15 +1,7 @@
 import { Box, Pagination } from "@mui/material";
-import ProductCart from "../../../components/ProductCard";
 import { useNavigate } from "react-router-dom";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  images: string[];
-}
+import ProductCart from "../ProductCard";
+import { Product } from "../../model/Product";
 
 interface Props {
   productList: Product[];
@@ -33,11 +25,7 @@ const ProductsList = ({
   const handleChange = (event: React.ChangeEvent<unknown>) => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    navigate(
-      `/products/${
-        event.target ? (event.target as HTMLButtonElement).innerText : ""
-      }`
-    );
+    navigate(`/products/page/${(event.target as HTMLButtonElement).innerText}`);
   };
 
   return (
@@ -66,7 +54,7 @@ const ProductsList = ({
         sx={{ marginInline: "auto", width: "fit-content", marginTop: "1rem" }}
       >
         <Pagination
-          page={currentPage}
+          page={Number.isNaN(currentPage) ? 1 : currentPage}
           count={numberOfPages}
           variant="outlined"
           shape="rounded"
