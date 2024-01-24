@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import style from "./CategoryCard.module.css";
 import { Box, Typography, useTheme } from "@mui/material";
-import { Category } from "../../../model/category";
 import ExtractImage from "../../../utils/ExtractImage";
+import { Category } from "../../../model/Category";
 
 const CategoryCard = ({
   category: { image, id, name },
