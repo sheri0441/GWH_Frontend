@@ -5,21 +5,27 @@ import ExtractImage from "../../../utils/ExtractImage";
 import { Category } from "../../../model/Category";
 
 const CategoryCard = ({
-  category: { image, id, name },
+  category: { image, name },
 }: {
   category: Category;
 }) => {
   const theme = useTheme();
   return (
-    <Link className={style.categoryCardLink} to={`./products/category/${id}`}>
+    <Link
+      className={style.categoryCardLink}
+      to={`./products/category/${name.toLowerCase()}`}
+    >
       <img
         style={{
           width: "100%",
           height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
         }}
         src={ExtractImage(image)}
         alt={name}
       />
+
       <Box
         sx={{
           width: "100%",
@@ -54,7 +60,8 @@ const CategoryCard = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: { sx: "1.5rem", md: "2rem" },
+            textAlign: "center",
+            fontSize: { xs: "1.5rem", md: "2rem" },
             textTransform: "uppercase",
           }}
         >

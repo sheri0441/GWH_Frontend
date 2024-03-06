@@ -4,15 +4,15 @@ import { Box, Tooltip, Typography } from "@mui/material";
 import ExtractImage from "../utils/ExtractImage";
 import { Product } from "../model/Product";
 
-const ProductCart = ({
-  product: { images, id, title, price },
+const ProductCard = ({
+  product: { image, id, title, price },
   discount = 0,
 }: {
   product: Product;
   discount?: number;
 }) => {
   return (
-    <Link to={`./products/${id}`} className={style.productCartLink}>
+    <Link to={`/products/id/${id}`} className={style.productCartLink}>
       <Box
         sx={{
           backgroundColor: "white",
@@ -20,12 +20,12 @@ const ProductCart = ({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: { xs: "250px", sm: "300px" },
           overflow: "hidden",
+          aspectRatio: "1 / 1",
         }}
       >
         <img
-          src={ExtractImage(images[0])}
+          src={ExtractImage(image)}
           alt={title}
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
@@ -82,4 +82,4 @@ const ProductCart = ({
   );
 };
 
-export default ProductCart;
+export default ProductCard;

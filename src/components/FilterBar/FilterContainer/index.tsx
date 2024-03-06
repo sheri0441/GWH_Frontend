@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Skeleton, Stack, Typography, useTheme } from "@mui/material";
 import CheckedBoxCategory from "./CheckedBoxCategory";
 import { Category } from "../../../model/Category";
-import LoadingAnimation from "../../../utils/LoadingAnimation";
 import ErrorMessage from "../../../utils/ErrorMessage";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface Props {
   showFilter: boolean;
@@ -14,6 +15,7 @@ interface Props {
 
 const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -32,16 +34,31 @@ const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
 
   const fetchCategory = async () => {
     setIsLoading(true);
-    const response = await fetch(`${import.meta.env.VITE_API}categories`);
-    const result = await response.json();
+    const response = await axios({
+      url: import.meta.env.VITE_API_URL + "/category",
+    });
+    const result = response.data;
 
-    if (response.ok) {
+    if (response.status === 200) {
       setCategoryList(result);
     } else {
       setHasError(true);
     }
 
     setIsLoading(false);
+  };
+
+  const navigationHandler = () => {
+    const categoryArray = [];
+    const input = document.querySelectorAll(".inputCategory:checked");
+    for (let i = 0; i < input.length; i++) {
+      categoryArray.push(input[i].id.split(" ").join("-").toLocaleLowerCase());
+    }
+
+    const categoryString = categoryArray.join(",");
+
+    navigate(`/products/category/${categoryString}`);
+    showFilterHandler();
   };
 
   useEffect(() => {
@@ -74,11 +91,21 @@ const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
             marginBottom: "1rem",
           }}
           component={"form"}
+          id="categoryForm"
         >
           {isLoading ? (
-            <Box sx={{ width: "100px", marginInline: "auto" }}>
-              <LoadingAnimation />
-            </Box>
+            <Stack
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "auto auto",
+                gap: "1rem",
+              }}
+            >
+              <Skeleton sx={{ width: "100px", height: "30px" }} />
+              <Skeleton sx={{ width: "100px", height: "30px" }} />
+              <Skeleton sx={{ width: "100px", height: "30px" }} />
+              <Skeleton sx={{ width: "100px", height: "30px" }} />
+            </Stack>
           ) : hasError ? (
             <ErrorMessage />
           ) : (
@@ -92,29 +119,30 @@ const FilterContainer = ({ showFilter, showFilterHandler }: Props) => {
             ))
           )}
         </Box>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          gap: "1rem",
-        }}
-      >
-        <PrimaryBtn
-          padding="0.25rem 0.5rem"
-          clickEvent={() => console.log("hello from appy filter")}
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            marginInline: "auto",
+            width: "fit-content",
+          }}
         >
-          <Typography component={"span"} sx={{ fontSize: "0.75rem" }}>
-            Apply
-          </Typography>
-        </PrimaryBtn>
-        <SecondaryBtn
-          padding="0.25rem 0.5rem"
-          clickEvent={() => showFilterHandler()}
-        >
-          <Typography component={"span"} sx={{ fontSize: "0.75rem" }}>
-            Cancel
-          </Typography>
-        </SecondaryBtn>
+          <PrimaryBtn padding="0.25rem 0.5rem" clickEvent={navigationHandler}>
+            <Typography component={"span"} sx={{ fontSize: "0.75rem" }}>
+              Apply
+            </Typography>
+          </PrimaryBtn>
+
+          <SecondaryBtn
+            padding="0.25rem 0.5rem"
+            fullWidth={true}
+            clickEvent={() => showFilterHandler()}
+          >
+            <Typography component={"span"} sx={{ fontSize: "0.75rem" }}>
+              Cancel
+            </Typography>
+          </SecondaryBtn>
+        </Box>
       </Box>
     </Box>
   );

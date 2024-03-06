@@ -1,0 +1,15 @@
+.categoryLink {
+  color: var(--clr-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  display: block;
+  margin-inline: auto;
+  width: fit-content;
+  text-transform: capitalize;
+}
+
+@media (min-width: 900px) {
+  .categoryLink {
+    margin-inline: 0;
+  }
+}

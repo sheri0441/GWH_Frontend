@@ -6,6 +6,7 @@ interface Props {
   clickEvent: Function;
   onlySmall?: boolean;
   danger?: boolean;
+  transparentBg?: boolean;
 }
 
 const IconSecondaryBtn = ({
@@ -13,6 +14,7 @@ const IconSecondaryBtn = ({
   clickEvent,
   onlySmall = false,
   danger = false,
+  transparentBg = true,
 }: Props) => {
   return (
     <SecondaryBtn
@@ -20,6 +22,8 @@ const IconSecondaryBtn = ({
       clickEvent={clickEvent}
       onlySmall={onlySmall}
       danger={danger}
+      transparentBg={transparentBg}
+      square={true}
     >
       <SvgIcon
         component={Type}

@@ -1,39 +1,39 @@
-import { Box, Container, Typography } from "@mui/material";
-import FilterBar from "../../components/FilterBar";
-import ProductsList from "../../components/ProductsList";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import LoadingAnimation from "../../utils/LoadingAnimation";
+import { useLocation, useParams } from "react-router-dom";
+import { Product } from "../../model/Product";
+import PageTitle from "../../utils/PageTitle";
+import FilterBar from "../../components/FilterBar";
 import ErrorMessage from "../../utils/ErrorMessage";
+import ProductsList from "../../components/ProductsList";
+import ProductListSkeleton from "./ProductListSkeleton";
+import axios from "axios";
 
-const ProductsPage = () => {
-  const [numberOfPages, setNumberOfPages] = useState<number>();
-  const [currentPageProducts, setCurrentPageProducts] = useState([]);
+const CategoryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [numberOfPages, setNumberOfPages] = useState<number>();
+  const [currentPageProducts, setCurrentPageProducts] = useState<Product[]>([]);
 
   const { num } = useParams();
+  const currentPage = Number(num) || 1;
 
-  const currentPage = num || "1";
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const sort = queryParams.get("sort");
 
   const fetchData = async () => {
-    const response = await fetch(`${import.meta.env.VITE_API}products`);
-    const result = await response.json();
+    try {
+      const response = await axios({
+        url:
+          import.meta.env.VITE_API_URL +
+          `/products/page/${currentPage}?sort=${sort}`,
+      });
+      const result = response.data;
 
-    if (response.ok) {
-      const chunkSize = 12;
+      setNumberOfPages(result.totalPages);
 
-      const chunks = [];
-
-      for (let i = 0; i < result.length; i += chunkSize) {
-        const chunk = result.slice(i, i + chunkSize);
-        chunks.push(chunk);
-      }
-
-      setNumberOfPages(chunks.length);
-
-      setCurrentPageProducts(chunks[Number(currentPage) - 1]);
-    } else {
+      setCurrentPageProducts(result.list);
+    } catch (error) {
       setHasError(true);
     }
 
@@ -42,40 +42,27 @@ const ProductsPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, sort]);
 
   return (
-    <Container>
-      <Box sx={{ paddingTop: "6.5rem", paddingBottom: "6.5rem" }}>
-        <Typography
-          sx={{
-            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
-            textAlign: "center",
-            fontWeight: "600",
-          }}
-          component={"h1"}
-        >
-          Products
-        </Typography>
-        <FilterBar />
-        {isLoading ? (
-          <Box
-            sx={{ width: "100px", marginInline: "auto", marginTop: "100px" }}
-          >
-            <LoadingAnimation />
-          </Box>
-        ) : hasError ? (
-          <ErrorMessage />
-        ) : (
-          <ProductsList
-            productList={currentPageProducts}
-            numberOfPages={numberOfPages}
-            currentPage={Number(num)}
-          />
-        )}
-      </Box>
-    </Container>
+    <>
+      <PageTitle>Products</PageTitle>
+      <FilterBar />
+      {isLoading ? (
+        <ProductListSkeleton />
+      ) : hasError ? (
+        <ErrorMessage />
+      ) : (
+        <ProductsList
+          productList={currentPageProducts}
+          numberOfPages={numberOfPages}
+          currentPage={currentPage}
+          sort={search}
+          pageUrl="/products/page/"
+        />
+      )}
+    </>
   );
 };
 
-export default ProductsPage;
+export default CategoryPage;

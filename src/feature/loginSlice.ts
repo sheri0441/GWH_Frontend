@@ -1,13 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-interface Cart {
-  name: string;
-  quantity: number;
-  price: number;
-  imageURL: string;
-  id: string;
-}
+import { Cart } from "../model/Cart";
+import axios from "axios";
 
 interface User {
   name: string;
@@ -18,51 +12,46 @@ interface User {
 }
 
 interface InitialState {
+  isLoading: boolean;
   isLogin: boolean;
+  hasError: boolean;
   user: User;
 }
 
+export const updateCart = createAsyncThunk(
+  "/user/cart",
+  async (cart: Cart[]) => {
+    const cartList: Cart[] = cart;
+
+    const response = await axios({
+      url: import.meta.env.VITE_API_URL + "/user/cart",
+      method: "PUT",
+      data: {
+        cart: cartList,
+      },
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      throw new Error();
+    }
+  }
+);
+
 const initialState: InitialState = {
+  isLoading: false,
   isLogin: false,
+  hasError: false,
   user: {
-    name: "Mosh",
-    email: "hello@gmail.com",
-    imageURL: "https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
-    id: "asdf1521561asd",
-    cart: [
-      {
-        name: "Apple",
-        quantity: 1,
-        price: 1.2,
-        imageURL:
-          "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-        id: "124",
-      },
-      {
-        name: "Apple",
-        quantity: 1,
-        price: 1.2,
-        imageURL:
-          "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-        id: "1245",
-      },
-      {
-        name: "Apple",
-        quantity: 1,
-        price: 1.2,
-        imageURL:
-          "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-        id: "1243",
-      },
-      {
-        name: "Apple",
-        quantity: 1,
-        price: 1.2,
-        imageURL:
-          "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-        id: "1246",
-      },
-    ],
+    name: "",
+    email: "",
+    imageURL: "",
+    id: "",
+    cart: [],
   },
 };
 
@@ -70,20 +59,53 @@ const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
-    logOut: (state) => {
+    logOutUser: (state) => {
       state.isLogin = false;
+      localStorage.removeItem("token");
     },
-    logIn: (state) => {
+    logIn: (
+      state,
+      action: PayloadAction<{
+        name: string;
+        email: string;
+        image: string;
+        id: string;
+      }>
+    ) => {
+      state.user.name = action.payload.name;
+      state.user.email = action.payload.email;
+      state.user.imageURL = action.payload.image;
+      state.user.id = action.payload.id;
       state.isLogin = true;
     },
-    filterById: (state, action: PayloadAction<string>) => {
-      state.user.cart = state.user.cart.filter(
-        (product) => product.id !== action.payload
-      );
+
+    setCartInfo: (state, action: PayloadAction<Cart[]>) => {
+      state.user.cart = action.payload;
     },
+
+    toggleHasError: (state) => {
+      state.hasError = !state.hasError;
+    },
+  },
+
+  extraReducers(builder) {
+    builder
+      .addCase(updateCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        const cart = action.payload;
+        state.user.cart = cart;
+        state.isLoading = false;
+      })
+      .addCase(updateCart.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
+      });
   },
 });
 
-export const { logOut, logIn, filterById } = loginSlice.actions;
+export const { logOutUser, logIn, setCartInfo, toggleHasError } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -4,14 +4,14 @@ import ExtractImage from "../../../utils/ExtractImage";
 
 interface Props {
   product: {
-    images: string[];
+    image: string;
     title: string;
     price: number;
-    id: number;
+    id: string;
   };
 }
 
-const ProductItem = ({ product: { images, title, price, id } }: Props) => {
+const ProductItem = ({ product: { image, title, price, id } }: Props) => {
   const theme = useTheme();
 
   return (
@@ -21,6 +21,7 @@ const ProductItem = ({ product: { images, title, price, id } }: Props) => {
           display: "flex",
           gap: "1rem",
           alignItems: "center",
+          width: "100%",
           "&:hover": {
             backgroundColor: theme.palette.secondary.light,
           },
@@ -31,14 +32,15 @@ const ProductItem = ({ product: { images, title, price, id } }: Props) => {
           sx={{
             flexGrow: 1,
             maxWidth: "50px",
-            aspectRatio: "1/1",
             backgroundColor: "white",
             objectFit: "contain",
+            display: "flex",
+            alignItems: "center",
           }}
         >
           <img
             style={{ width: "100%" }}
-            src={ExtractImage(images[0])}
+            src={ExtractImage(image)}
             alt={title}
           />
         </Box>

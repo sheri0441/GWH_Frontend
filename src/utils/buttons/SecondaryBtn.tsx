@@ -10,6 +10,9 @@ interface SecondaryBtnParameter {
   onlySmall?: boolean;
   hideOnSmall?: boolean;
   danger?: boolean;
+  fullWidth?: boolean;
+  transparentBg?: boolean;
+  square?: boolean;
 }
 
 const SecondaryBtn = ({
@@ -19,6 +22,9 @@ const SecondaryBtn = ({
   onlySmall = false,
   hideOnSmall = false,
   danger = false,
+  fullWidth = false,
+  transparentBg = true,
+  square = false,
 }: SecondaryBtnParameter) => {
   const theme = useTheme();
   return (
@@ -41,13 +47,18 @@ const SecondaryBtn = ({
           color: `${theme.palette.secondary.light}`,
           borderColor: danger ? red[500] : theme.palette.primary.main,
         },
+        backgroundColor: transparentBg
+          ? "transparent"
+          : theme.palette.background.default,
         padding: `${padding}`,
-        minWidth: "fit-content",
+        minWidth: "0",
+        width: fullWidth ? "100%" : "fit-content",
         height: "fit-content",
         display: {
           xs: hideOnSmall ? "none" : "inline-flex",
           md: onlySmall ? "none" : "inline-flex",
         },
+        aspectRatio: square ? "1 / 1" : "auto",
       }}
       onClick={() => clickEvent()}
     >

@@ -1,16 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
 :root {
   --clr-primary: rgb(12, 12, 12);
   --clr-secondary: #3075a6;
   --clr-tertiary: #e7ebef;
   --clr-neutral: #fcfdfe;
+  --clr-danger: #f44336;
+  --f-primary: "Inter", sans-serif;
 }
 
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 *::-webkit-scrollbar {
@@ -35,16 +39,3 @@ body {
   font-family: "inter", sans-serif;
   position: relative;
 }
-
-/* body::-webkit-scrollbar {
-  width: 1em;
-}
-
-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-} */

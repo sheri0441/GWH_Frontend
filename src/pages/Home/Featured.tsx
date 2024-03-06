@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import ProductCart from "../../components/ProductCard";
+import ProductCard from "../../components/ProductCard";
 import SectionHeader from "../../utils/SectionHeader";
 import ErrorMessage from "../../utils/ErrorMessage";
-import LoadingAnimation from "../../utils/LoadingAnimation";
 import { Product } from "../../model/Product";
+import ProductCardSkeleton from "../../utils/ProductCardSkeleton";
+import axios from "axios";
 
 const Featured = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -13,11 +14,12 @@ const Featured = () => {
 
   const fetchFeaturedProducts = async () => {
     setIsLoading(true);
-    const response = await fetch(`${import.meta.env.VITE_API}products`);
-    const result = await response.json();
+    const response = await axios({
+      url: import.meta.env.VITE_API_URL + "/products/featured",
+    });
 
-    if (response.ok) {
-      setFeaturedList(result);
+    if (response.status === 200) {
+      setFeaturedList(response.data);
     } else {
       setHasError(true);
     }
@@ -45,18 +47,20 @@ const Featured = () => {
         }}
       >
         {isLoading ? (
-          <Box sx={{ display: "block", width: "20px", marginInline: "auto" }}>
-            <LoadingAnimation />
-          </Box>
+          <>
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </>
         ) : hasError ? (
           <ErrorMessage />
         ) : (
-          featuredList.map((pro, index) => {
-            if (index < 4) {
-              return <ProductCart key={pro.id} product={pro} />;
-            }
+          featuredList.map((pro) => {
+            return <ProductCard key={pro.id} product={pro} />;
           })
         )}
+        <Box></Box>
       </Box>
     </Box>
   );

@@ -1,21 +1,30 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  Skeleton,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Product } from "../../../model/Product";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import NewArrivalCard from "./NewArrivalCard";
 import Pattern from "../../../assets/image/pattern.png";
 import Modal from "../../../assets/image/modal.png";
+// import ErrorMessage from "../../../utils/ErrorMessage";
+import axios from "axios";
 
 const Hero = () => {
   const theme = useTheme();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newArrival, setNewArrival] = useState<Product>({
-    id: 0,
+    id: "",
     title: "",
     price: 0,
     description: "",
-    images: [],
+    image: "",
     creationAt: "",
     updatedAt: "",
     category: {
@@ -30,14 +39,18 @@ const Hero = () => {
 
   const fetchNewArrivalProduct = async () => {
     setIsLoading(true);
-    const response = await fetch(`${import.meta.env.VITE_API}products`);
-    const result = await response.json();
+    try {
+      const response = await axios({
+        url: import.meta.env.VITE_API_URL + "/products/recent",
+      });
+      setIsLoading(false);
 
-    setIsLoading(false);
-
-    if (response.ok) {
-      setNewArrival(result[0]);
-    } else {
+      if (response.status === 200) {
+        setNewArrival(response.data);
+      } else {
+        setHasError(true);
+      }
+    } catch (error) {
       setHasError(true);
     }
   };
@@ -57,21 +70,21 @@ const Hero = () => {
       <Container>
         <Typography
           sx={{
-            fontFamily: '"Carattere", cursive',
+            fontFamily: '"Anton", sans-serif',
             fontSize: { xs: "3rem", md: "4rem" },
             textAlign: { xs: "center", md: "left" },
           }}
         >
-          Fashion Fusion
+          Gents Wardrobe Hub
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: "2rem", md: "3rem", lg: "4rem" },
+            fontSize: { xs: "2rem", md: "2.5rem", lg: "3.5rem" },
             textAlign: { xs: "center", md: "left" },
           }}
         >
-          Style Unites,
-          <br /> Fashion Defines
+          Style Redefined
+          <br /> for Every Gentlemen
         </Typography>
         <Box
           sx={{
@@ -84,7 +97,22 @@ const Hero = () => {
             View Products
           </PrimaryBtn>
         </Box>
-        {!isLoading && !hasError && <NewArrivalCard product={newArrival} />}
+        {isLoading ? (
+          <Stack
+            sx={{
+              marginTop: { xs: "3rem", md: "6rem" },
+              width: "100%",
+              maxWidth: "20rem",
+              marginInline: { xs: "auto", md: "0" },
+            }}
+          >
+            <Skeleton variant="rectangular" height={140} />
+          </Stack>
+        ) : hasError ? (
+          <Box sx={{ height: "140px" }}></Box>
+        ) : (
+          <NewArrivalCard product={newArrival} />
+        )}
       </Container>
       <Box
         sx={{
@@ -92,6 +120,7 @@ const Hero = () => {
           width: "50%",
           height: "100%",
           position: "absolute",
+          zIndex: "-9",
           top: "0",
           right: "0",
           display: { xs: "none", md: "block" },

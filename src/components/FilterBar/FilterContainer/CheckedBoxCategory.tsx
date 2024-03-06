@@ -49,7 +49,7 @@ const CheckedBoxCategory = ({
           id={useFor}
           checked={checkedValues.includes(useFor)}
           onChange={(e) => changeHandler(e)}
-          // className={style.filterCheckBoxOption}
+          className="inputCategory"
         />
         <label htmlFor={useFor}>{useFor}</label>
       </Box>

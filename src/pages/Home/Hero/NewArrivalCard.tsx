@@ -5,7 +5,7 @@ import { Product } from "../../../model/Product";
 import ExtractImage from "../../../utils/ExtractImage";
 
 const NewArrivalCard = ({
-  product: { images, id, title, price },
+  product: { image, id, title, price },
   discount = 0,
 }: {
   product: Product;
@@ -14,20 +14,17 @@ const NewArrivalCard = ({
   const theme = useTheme();
 
   return (
-    <Link to={`./products/${id}`} className={style.arrivalCard}>
+    <Link to={`./products/id/${id}`} className={style.arrivalCard}>
       <Box
         sx={{
           width: "127px",
-          backgroundColor: theme.palette.background.default,
+          // backgroundColor: theme.palette.background.default,
           display: "flex",
           alignItems: "center",
+          aspectRatio: "1 / 1",
         }}
       >
-        <img
-          style={{ width: "100%" }}
-          src={ExtractImage(images[0])}
-          alt={title}
-        />
+        <img style={{ width: "100%" }} src={ExtractImage(image)} alt={title} />
       </Box>
       <Box>
         <Typography
@@ -42,18 +39,14 @@ const NewArrivalCard = ({
         >
           {title}
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "flex-start",
-          }}
-        >
+        <Box>
           <Typography
             sx={{
               backgroundColor: "#0009",
               textDecoration: "none",
               color: theme.palette.background.default,
               width: "fit-content",
+              height: "fit-content",
               padding: "0.125rem 0.5rem",
               fontSize: { xs: "0.5rem", md: "0.75rem" },
             }}
@@ -66,6 +59,7 @@ const NewArrivalCard = ({
               marginLeft: "auto",
               display: "block",
               width: "fit-content",
+              marginTop: "auto",
             }}
           >
             {discount ? price - discount / 100 : price}$

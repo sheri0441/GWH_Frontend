@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Store } from "./app/Store";
 import { Provider } from "react-redux";
+import App from "./App.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Auth0Provider
-    domain="dev-wwdya06aprywznam.us.auth0.com"
-    clientId="8NTLKA2ztLJX4R7u4nT2PBRISN0WBxR7"
+    domain={import.meta.env.VITE_DOMAIN}
+    clientId={import.meta.env.VITE_CLIENT_ID}
     authorizationParams={{
+      audience: `${import.meta.env.VITE_AUDIENCE}`,
+      scope: `${import.meta.env.VITE_AUTH0_SCOPE}`,
       redirect_uri: window.location.origin,
     }}
+    cacheLocation="localstorage"
   >
     <React.StrictMode>
       <Provider store={Store}>

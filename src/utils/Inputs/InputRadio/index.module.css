@@ -1,0 +1,43 @@
+.inputRadio {
+  display: none;
+}
+.inputRadio + label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  padding: 0.75rem;
+  font-family: var(--f-primary);
+  border-radius: 0;
+  border: 2px solid var(--clr-primary);
+  background-color: var(--clr-neutral);
+  color: var(--clr-primary);
+  width: 100%;
+  max-width: 380px;
+  cursor: pointer;
+  fill: var(--clr-primary);
+  height: fit-content;
+}
+
+.inputRadio + label:hover {
+  background-color: var(--clr-primary);
+  color: var(--clr-neutral);
+  fill: var(--clr-neutral);
+}
+
+.inputRadio + label > strong {
+  margin-left: auto;
+}
+
+.inputRadio:checked + label {
+  background-color: var(--clr-primary);
+  color: var(--clr-neutral);
+  fill: var(--clr-neutral);
+}
+
+@media (min-width: 900px) {
+  .inputRadio + label {
+    font-size: 1.125rem;
+    padding: 1.125rem;
+  }
+}

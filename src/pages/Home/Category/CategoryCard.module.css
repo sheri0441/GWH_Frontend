@@ -3,6 +3,7 @@
   color: white;
   display: block;
   max-height: 187px;
+  width: 100%;
 }
 
 .categoryCardLink:hover > div {

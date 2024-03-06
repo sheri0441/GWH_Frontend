@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Container, Stack, Typography, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import ProductItem from "./ProductItem";
 import style from "./index.module.css";
 import { Product } from "../../../model/Product";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
-import LoadingAnimation from "../../../utils/LoadingAnimation";
 import ErrorMessage from "../../../utils/ErrorMessage";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
+import ProductItemSkeleton from "./ProductItemSkeleton";
+import axios from "axios";
 
 interface Props {
   showSearch: boolean;
@@ -34,21 +35,31 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
   };
 
   const fetchData = async () => {
-    setIsLoading(true);
-    const response = await fetch(`${import.meta.env.VITE_API}products`);
-    const result: Product[] = await response.json();
-
+    const response = await axios({
+      url: import.meta.env.VITE_API_URL + `/products/search/${inputValue}`,
+    });
     setIsLoading(false);
-    if (response.ok) {
-      const newResult = result.filter((pro) => pro.title.includes(inputValue));
-      setProduct(newResult);
+    if (response.status === 200) {
+      setProduct(response.data);
     } else {
       setHasError(true);
     }
   };
 
+  const navigationHandler = () => {
+    navigate(`/products/search/${inputValue}`);
+    closeSearch();
+  };
+
   useEffect(() => {
-    inputValue.length > 0 && fetchData();
+    setIsLoading(true);
+    let timeout = setTimeout(() => {
+      inputValue.length > 0 && fetchData();
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [inputValue]);
 
   return (
@@ -70,7 +81,6 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
         <Box
           sx={{
             display: "flex",
-
             justifyContent: "space-between",
             alignItems: "center",
             gap: "1.5rem",
@@ -96,7 +106,7 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
             />
             <IconSecondaryBtn
               Type={SearchIcon}
-              clickEvent={() => navigate(`/products/search/${inputValue}`)}
+              clickEvent={navigationHandler}
             />
           </Box>
           <IconSecondaryBtn Type={CloseIcon} clickEvent={closeSearch} />
@@ -106,18 +116,18 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
             marginTop: "2rem",
             marginBottom: "2rem",
             marginInline: "auto",
+            width: "100%",
           }}
         >
           {inputValue &&
             (isLoading ? (
-              <Box
-                sx={{
-                  width: "3rem",
-                  marginInline: "auto",
-                }}
-              >
-                <LoadingAnimation />
-              </Box>
+              <Stack spacing={2}>
+                <ProductItemSkeleton />
+                <ProductItemSkeleton />
+                <ProductItemSkeleton />
+                <ProductItemSkeleton />
+                <ProductItemSkeleton />
+              </Stack>
             ) : hasError ? (
               <ErrorMessage />
             ) : product.length !== 0 ? (
@@ -130,27 +140,24 @@ const SearchContainer = ({ showSearch, showSearchHandler }: Props) => {
                     overflowY: "scroll",
                     height: "calc(100svh - 200px)",
                     maxHeight: "fit-content",
-                    width: "fit-content",
+                    width: "100%",
                     marginBottom: "2rem",
                     marginInline: "auto",
                   }}
                 >
                   {product.map((pro, index) => {
                     if (index < 5) {
-                      return <ProductItem key={index} product={pro} />;
+                      return <ProductItem key={pro.id} product={pro} />;
                     }
                   })}
                 </Box>
-                {product.length > 5 && (
-                  <PrimaryBtn
-                    padding="0.75rem 1rem"
-                    clickEvent={() =>
-                      navigate(`/products/search/${inputValue}`)
-                    }
-                  >
-                    <Typography>View All</Typography>
-                  </PrimaryBtn>
-                )}
+
+                <PrimaryBtn
+                  padding="0.75rem 1rem"
+                  clickEvent={navigationHandler}
+                >
+                  <Typography>View All</Typography>
+                </PrimaryBtn>
               </>
             ) : (
               <Box

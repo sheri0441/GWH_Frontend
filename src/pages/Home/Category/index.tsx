@@ -3,8 +3,9 @@ import { Box } from "@mui/material";
 import SectionHeader from "../../../utils/SectionHeader";
 import CategoryCard from "./CategoryCard";
 import ErrorMessage from "../../../utils/ErrorMessage";
-import LoadingAnimation from "../../../utils/LoadingAnimation";
 import { Category } from "../../../model/Category";
+import CategoryCardSkeleton from "./CategoryCardSkeleton";
+import axios from "axios";
 
 const Categories = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -13,11 +14,13 @@ const Categories = () => {
 
   const fetchCategory = async () => {
     setIsLoading(true);
-    const response = await fetch(`${import.meta.env.VITE_API}categories`);
-    const result = await response.json();
 
-    if (response.ok) {
-      setCategoryList(result);
+    const response = await axios({
+      url: import.meta.env.VITE_API_URL + "/category",
+    });
+
+    if (response.status === 200) {
+      setCategoryList(response.data);
     } else {
       setHasError(true);
     }
@@ -40,9 +43,12 @@ const Categories = () => {
         }}
       >
         {isLoading ? (
-          <Box sx={{ display: "block", width: "20px", marginInline: "auto" }}>
-            <LoadingAnimation />
-          </Box>
+          <>
+            <CategoryCardSkeleton />
+            <CategoryCardSkeleton />
+            <CategoryCardSkeleton />
+            <CategoryCardSkeleton />
+          </>
         ) : hasError ? (
           <ErrorMessage />
         ) : (
