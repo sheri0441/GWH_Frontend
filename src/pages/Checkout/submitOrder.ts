@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Cart } from "../../model/Cart";
 import { formInputs } from "../../model/FormInput";
 
@@ -6,19 +7,26 @@ export const submitOrder = async (
   cart: Cart[],
   totalPrice: number
 ) => {
-  const cartItemList = [];
-  for (let i in cart) {
-    cartItemList.push({
-      productId: cart[i].product.id,
-      quantity: parseInt(i),
-    });
-  }
+  const isPayingCash = data.payment === "cash";
 
   const dataForm = {
     ...data,
-    cartItem: cartItemList,
+    productList: cart,
     totalPrice: totalPrice,
   };
+
+  if (isPayingCash) {
+    console.log("Customer paying cash");
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/order/cash",
+        dataForm
+      );
+      console.log(response);
+    } catch (error) {}
+  } else {
+    console.log("customer paying in card.");
+  }
 
   console.log(dataForm);
 };

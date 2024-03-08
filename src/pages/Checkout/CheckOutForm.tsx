@@ -9,11 +9,11 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import InputSubmit from "../../utils/Inputs/InputSubmit";
 import { useEffect, useState } from "react";
-import { PayoneerIcon, StripeIcon } from "../../utils/Icons";
+// import { PayoneerIcon, StripeIcon } from "../../utils/Icons";
 import { formInputs } from "../../model/FormInput";
 import { orderFormSchema } from "../../schema/OrderFormSchema";
-import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
-import VerifiedIcon from "@mui/icons-material/Verified";
+// import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
+// import VerifiedIcon from "@mui/icons-material/Verified";
 
 const CheckOutForm = ({
   shippingCostHandler,
@@ -221,13 +221,13 @@ const CheckOutForm = ({
             alignItems: "center",
             width: "100%",
             gridColumn: { sm: "2 / 3", md: "auto" },
+            gap: "1rem",
           }}
         >
           <Typography
             sx={{
               fontWeight: 500,
               fontSize: "1.25rem",
-              marginBottom: { xs: "1rem" },
             }}
           >
             Payment Options
@@ -241,88 +241,12 @@ const CheckOutForm = ({
               <SvgIcon component={LocalAtmIcon} /> Cash on Delivery
             </InputRadio>
           </Box>
-          <Box
-            sx={{
-              width: "100%",
-              maxWidth: "380px",
-              marginTop: "0.75rem",
-              "& > button, & > div": {
-                width: "100%",
-                padding: { xs: "0.75rem", md: "1.125rem" },
-              },
-            }}
-          >
-            {payStripe ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  maxWidth: "380px",
-                  gap: "1rem",
-                  alignItems: "center",
-                  backgroundColor: theme.palette.success.light,
-                  color: theme.palette.background.default,
-                  border: `1px solid ${theme.palette.success.light} `,
-                }}
-              >
-                <SvgIcon component={VerifiedIcon} />
-                Done
-              </Box>
-            ) : (
-              <SecondaryBtn clickEvent={stripePaymentHandler} padding="0.75rem">
-                <Box
-                  sx={{
-                    display: "flex",
-                    minWidth: "100%",
-                    maxWidth: "380px",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <SvgIcon component={CreditCardIcon} />
-                  <Typography
-                    component={"span"}
-                    sx={{
-                      textTransform: "capitalize",
-                      fontSize: { xs: "0.75rem", md: "1.125rem" },
-                    }}
-                  >
-                    stripe
-                  </Typography>
-                </Box>
-              </SecondaryBtn>
-            )}
+          <Box sx={{ width: "100%", maxWidth: "380px" }}>
+            <InputRadio id="card" register={register("payment")}>
+              <SvgIcon component={CreditCardIcon} /> Debit/Credit Card
+            </InputRadio>
           </Box>
         </Box>
-        {/* <InputRadio id="card" register={register("payment")}></InputRadio> */}
-        {/* {showCardOptions && (
-          <Box
-            sx={{
-              display: "flex",
-              gap: "1rem",
-              width: "100%",
-              maxWidth: "380px",
-              marginInline: "auto",
-              gridColumn: { sm: "2 / 3", md: "auto" },
-              "& > label > svg": {
-                width: "100%",
-                height: "50px",
-              },
-              "& > label:hover > svg": {
-                fill: theme.palette.background.default,
-              },
-            }}
-          >
-            <InputRadio id="payoneer" register={register("onlineMethod")}>
-              <PayoneerIcon />
-            </InputRadio>
-            <InputRadio id="stripe" register={register("onlineMethod")}>
-              <StripeIcon />
-            </InputRadio>
-            <button type="button">
-              <PayoneerIcon />
-            </button>
-          </Box>
-        )} */}
         <Box
           sx={{
             width: "100%",

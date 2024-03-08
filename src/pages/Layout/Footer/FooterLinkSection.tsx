@@ -44,13 +44,13 @@ const FooterLinkSection = () => {
         </LinkListContainer>
         <LinkListContainer>
           <ListItem>
-            <Link to={"/trackorder"}>Track Order</Link>
+            <Link to={"/track"}>Track Order</Link>
           </ListItem>
           <ListItem>
             <Link to={"/contact#faq"}>FAQs</Link>
           </ListItem>
           <ListItem>
-            <Link to={"/policy"}>Privacy Policy</Link>
+            <Link to={"/policy&term"}>Policy & Terms</Link>
           </ListItem>
         </LinkListContainer>
       </Box>

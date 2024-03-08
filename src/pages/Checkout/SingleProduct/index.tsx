@@ -4,60 +4,29 @@ import OrderSummary from "../OrderSummary";
 import CheckOutForm from "../CheckOutForm";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Cart } from "../../../model/Cart";
 import { formInputs } from "../../../model/FormInput";
 import { submitOrder } from "../submitOrder";
+import axios from "axios";
 
 const SingleProduct = () => {
-  const { id, quantity = 1 } = useParams();
+  const { id, quantity = "1" } = useParams();
   const [shippingCost, setShippingCost] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [submitDisable, setSubmitDisable] = useState<boolean>(false);
-  const [cart, setCart] = useState<Cart[]>([
+
+  const cart = [
     {
-      product: {
-        id: 0,
-        title: "",
-        price: 0,
-        description: "",
-        images: [],
-        creationAt: "",
-        updatedAt: "",
-        category: {
-          id: 0,
-          name: "",
-          image: "",
-          creationAt: "",
-          updatedAt: "",
-        },
-      },
-      quantity: 0,
+      productId: id ? id : "",
+      quantity: parseInt(quantity),
     },
-  ]);
+  ];
 
   const shippingCostHandler = (cost: number) => {
     setShippingCost(cost);
   };
 
-  const fetchProduct = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API}products/${id}`);
-      const result = await response.json();
-      setCart([
-        {
-          product: result,
-          quantity: Number(quantity),
-        },
-      ]);
-    } catch (error) {}
-  };
-
   const submitHandler = (data: formInputs) =>
     submitOrder(data, cart, totalPrice);
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
 
   useEffect(() => {
     if (cart.length === 0) {

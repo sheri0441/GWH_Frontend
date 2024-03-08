@@ -9,7 +9,7 @@ import "./App.css";
 import CategoryPage from "./pages/Products/CategoryPage";
 import ProductsPageLayout from "./pages/Products/ProductsPageLayout";
 import ProductDetailPage from "./pages/Products/ProductDetailPage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "./app/hooks";
 import { setCartInfo } from "./feature/loginSlice";
 import ContactPage from "./pages/Contact";
@@ -18,6 +18,12 @@ import SingleProduct from "./pages/Checkout/SingleProduct";
 import UserPage from "./pages/UserPage";
 import { isExpired } from "react-jwt";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+import OverLayerNote from "./utils/OverLayerNote";
+import SecondaryBtn from "./utils/buttons/SecondaryBtn";
+import { Typography } from "@mui/material";
+import PolicyPage from "./pages/policy";
+import TrackOrderPage from "./pages/TrackOrder";
 
 const theme = createTheme({
   typography: {
@@ -41,6 +47,7 @@ const theme = createTheme({
 function App() {
   const dispatch = useAppDispatch();
   const { logout, isAuthenticated } = useAuth0();
+  const [serverDown, setServerDown] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("cart") !== null) {
@@ -59,6 +66,22 @@ function App() {
     if (token !== null && isExpired(token)) {
       localStorage.removeItem("token");
     }
+  }, []);
+
+  const checkServer = async () => {
+    try {
+      const response = await axios.get(import.meta.env.VITE_API_URL + "/");
+
+      if (response.status !== 200) {
+        setServerDown(true);
+      }
+    } catch (error) {
+      setServerDown(true);
+    }
+  };
+
+  useEffect(() => {
+    checkServer();
   }, []);
 
   return (
@@ -95,11 +118,27 @@ function App() {
               {isAuthenticated && (
                 <Route path="user/profile" element={<UserPage />} />
               )}
+              <Route path="policy&term" element={<PolicyPage />} />
+              <Route path="track" element={<TrackOrderPage />} />
               <Route path="*" element={<Home />} />
             </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
+      {serverDown && (
+        <OverLayerNote>
+          <Typography>
+            There is some issue in the server. Please reload site.
+          </Typography>
+          <SecondaryBtn
+            padding="0.5rem"
+            danger={true}
+            clickEvent={() => window.location.reload()}
+          >
+            Reload Site
+          </SecondaryBtn>
+        </OverLayerNote>
+      )}
     </>
   );
 }

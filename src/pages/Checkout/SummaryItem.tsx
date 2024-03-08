@@ -1,30 +1,31 @@
 import IconSecondaryBtn from "../../utils/buttons/IconSecondaryBtn";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Typography, useTheme } from "@mui/material";
-import { Product } from "../../model/Product";
 import ExtractImage from "../../utils/ExtractImage";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { setCartInfo, updateCart } from "../../feature/loginSlice";
 // import { filterById } from "../../feature/loginSlice";
 
 const SummaryItem = ({
-  item: { product, quantity },
+  item,
   hideDeleteBtn = false,
 }: {
-  item: { product: Product; quantity: number };
+  item: CartProduct;
   hideDeleteBtn: boolean;
 }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const cart = useAppSelector((store) => store.login.user.cart);
   const isLogin = useAppSelector((store) => store.login.isLogin);
-  // const deleteItem = () => {
-  //   let cartList = [...cart].filter((item) => item.productId !== cartItem.id);
-  //   if (isLogin) {
-  //     dispatch(updateCart(cartList));
-  //   } else {
-  //     dispatch(setCartInfo(cartList));
-  //   }
-  // };
+  const deleteItem = () => {
+    let cartList = [...cart].filter((pro) => item.id !== pro.productId);
+
+    if (isLogin) {
+      dispatch(updateCart(cartList));
+    } else {
+      dispatch(setCartInfo(cartList));
+    }
+  };
 
   return (
     <Box
@@ -58,8 +59,8 @@ const SummaryItem = ({
         >
           <img
             style={{ width: "100%" }}
-            src={ExtractImage(product.image)}
-            alt={product.title}
+            src={ExtractImage(item.image)}
+            alt={item.title}
           />
         </Box>
         <Typography
@@ -72,7 +73,7 @@ const SummaryItem = ({
             WebkitBoxOrient: "vertical",
           }}
         >
-          {product.title}
+          {item.title}
         </Typography>
       </Box>
       <Box
@@ -81,13 +82,14 @@ const SummaryItem = ({
           alignItems: "center",
           justifyContent: "space-between",
           gap: "1rem",
+          width: "100%",
           marginLeft: "auto",
         }}
       >
         {!hideDeleteBtn && (
           <IconSecondaryBtn
             Type={DeleteIcon}
-            clickEvent={() => console.log("deleteBtn")}
+            clickEvent={deleteItem}
             danger={true}
           />
         )}
@@ -95,10 +97,11 @@ const SummaryItem = ({
         <Typography
           sx={{
             textAlign: "right",
+            marginLeft: "auto",
           }}
         >
-          {quantity} X {product.price}$ ={" "}
-          <strong>{quantity * product.price}$ </strong>
+          {item.quantity} X {item.price}$ =
+          <strong>{item.quantity * item.price}$ </strong>
         </Typography>
       </Box>
     </Box>

@@ -2,6 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import SummaryItem from "./SummaryItem";
 import { useEffect, useState } from "react";
 import { Cart } from "../../model/Cart";
+import axios from "axios";
 
 const OrderSummary = ({
   shippingCost,
@@ -18,23 +19,42 @@ const OrderSummary = ({
 }) => {
   const theme = useTheme();
   const [subTotal, setSubTotal] = useState<number>(0.0);
+  const [productWithDetail, setProductWithDetail] = useState<CartProduct[]>([]);
+  const [hasError, setHasError] = useState<boolean>(false);
 
-  const costCalculator = (cartItem: Cart[]) => {
-    let total = 0;
-    for (let i = 0; i < cartItem.length; i++) {
-      total = total + Number(cartItem[i].product.price * cartItem[i].quantity);
+  const getProductDetails = async () => {
+    setHasError(false);
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/products/cart",
+        cart
+      );
+      if (response.status === 200) {
+        setProductWithDetail(response.data);
+        calculateTotalCost(response.data);
+      } else {
+        setHasError(true);
+      }
+    } catch (error) {
+      setHasError(true);
     }
-    setSubTotal(Number(total));
-    calculateTotalCost(total);
   };
 
-  const calculateTotalCost = (sub: number) => {
+  const calculateTotalCost = (cart: CartProduct[]) => {
+    let sub = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+      sub = sub + Number(cart[i].price * cart[i].quantity);
+    }
+
+    setSubTotal(sub);
+
     const totalCost = sub + shippingCost;
     setTotalPrice(Number(totalCost));
   };
 
   useEffect(() => {
-    costCalculator(cart);
+    getProductDetails();
   }, [cart, shippingCost]);
 
   return (
@@ -65,10 +85,10 @@ const OrderSummary = ({
             gap: "1rem",
           }}
         >
-          {cart.map((item) => (
+          {productWithDetail.map((item) => (
             <SummaryItem
               hideDeleteBtn={hideDeleteBen}
-              key={item.product.id}
+              key={item.id}
               item={item}
             />
           ))}
