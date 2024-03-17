@@ -28,6 +28,7 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
   };
 
   const getCartProducts = async () => {
+    setIsLoading(true);
     const response = await axios({
       method: "POST",
       url: import.meta.env.VITE_API_URL + "/products/cart",
@@ -69,15 +70,15 @@ const ShopCart = ({ showCart, showCartHandler }: Props) => {
             gap: 2,
           }}
         >
-          {isLoading ? (
-            <CartSkeleton />
-          ) : cartList.length > 0 ? (
-            cartList.map((cartItem) => (
-              <ProductItemCart key={cartItem.id} cartItem={cartItem} />
-            ))
-          ) : (
-            <Typography>You have no products in your cart. </Typography>
-          )}
+          {isLoading && <CartSkeleton />}
+          {!isLoading &&
+            (cartList.length === 0 ? (
+              <Typography>You have no products in your cart. </Typography>
+            ) : (
+              cartList.map((cartItem) => (
+                <ProductItemCart key={cartItem.id} cartItem={cartItem} />
+              ))
+            ))}
         </Box>
         <Box>
           <Divider sx={{ marginBottom: 1 }} />

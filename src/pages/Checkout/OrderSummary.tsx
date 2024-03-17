@@ -7,13 +7,13 @@ import axios from "axios";
 const OrderSummary = ({
   shippingCost,
   cart,
-  hideDeleteBen = false,
+  hideDeleteBtn = false,
   totalPrice,
   setTotalPrice,
 }: {
   shippingCost: number;
   cart: Cart[];
-  hideDeleteBen?: boolean;
+  hideDeleteBtn?: boolean;
   totalPrice: number;
   setTotalPrice: Function;
 }) => {
@@ -87,7 +87,7 @@ const OrderSummary = ({
         >
           {productWithDetail.map((item) => (
             <SummaryItem
-              hideDeleteBtn={hideDeleteBen}
+              hideDeleteBtn={hideDeleteBtn}
               key={item.id}
               item={item}
             />
