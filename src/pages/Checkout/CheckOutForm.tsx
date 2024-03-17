@@ -9,11 +9,8 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import InputSubmit from "../../utils/Inputs/InputSubmit";
 import { useEffect, useState } from "react";
-// import { PayoneerIcon, StripeIcon } from "../../utils/Icons";
 import { formInputs } from "../../model/FormInput";
 import { orderFormSchema } from "../../schema/OrderFormSchema";
-// import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
-// import VerifiedIcon from "@mui/icons-material/Verified";
 
 const CheckOutForm = ({
   shippingCostHandler,
@@ -25,7 +22,7 @@ const CheckOutForm = ({
   submitHandler: Function;
 }) => {
   const theme = useTheme();
-  const [showCardOptions, setShowCardOptions] = useState<boolean>(false);
+  const [isPayingWithCard, setIsPayingWithCard] = useState<boolean>(false);
   const [payStripe, setPayStripe] = useState<boolean>(false);
 
   const {
@@ -78,9 +75,9 @@ const CheckOutForm = ({
       }
 
       if (value.payment === "card") {
-        setShowCardOptions(true);
+        setIsPayingWithCard(true);
       } else {
-        setShowCardOptions(false);
+        setIsPayingWithCard(false); //work here
       }
     });
     return () => subscription.unsubscribe();
