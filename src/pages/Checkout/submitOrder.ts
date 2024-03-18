@@ -6,7 +6,8 @@ import { loadStripe } from "@stripe/stripe-js";
 export const submitOrder = async (
   data: formInputs,
   cart: Cart[],
-  totalPrice: number
+  totalPrice: number,
+  navigate: Function
 ) => {
   const dataForm = {
     ...data,
@@ -17,10 +18,7 @@ export const submitOrder = async (
   const isPayingCash = data.payment === "cash";
   if (isPayingCash) {
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_API_URL + "/order/cash",
-        dataForm
-      );
+      await axios.post(import.meta.env.VITE_API_URL + "/order/cash", dataForm);
     } catch (error) {
       throw error;
     }
@@ -46,5 +44,5 @@ export const submitOrder = async (
     }
   }
 
-  console.log(dataForm);
+  navigate(location.pathname + "?status=success");
 };

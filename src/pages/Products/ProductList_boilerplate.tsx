@@ -29,6 +29,7 @@ const ProductList_boilerplate = ({
   const sort = queryParams.get("sort");
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const response = await axios({
         url: import.meta.env.VITE_API_URL + apiPath + `?sort=${sort}`,

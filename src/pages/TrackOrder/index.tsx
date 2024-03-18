@@ -16,8 +16,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputSubmit from "../../utils/Inputs/InputSubmit";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingAnimation from "../../utils/LoadingAnimation";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface Track {
   order: string;
@@ -38,14 +39,12 @@ const TrackOrderPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const orderNumber = queryParams.get("order");
+  const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-
-    formState: { errors },
-  } = useForm<Track>({
+  const { register, handleSubmit, reset } = useForm<Track>({
     resolver: zodResolver(
       z.object({
         order: z
@@ -84,9 +83,15 @@ const TrackOrderPage = () => {
   };
 
   const onSubmit = (data: { order: string }) => {
-    getOrderDetail(data.order);
+    navigate(location.pathname + `?order=${data.order}`);
     reset();
   };
+
+  useEffect(() => {
+    if (orderNumber !== null) {
+      getOrderDetail(orderNumber);
+    }
+  }, [orderNumber]);
 
   return (
     <Container maxWidth="sm" sx={{ minHeight: "100vh" }}>

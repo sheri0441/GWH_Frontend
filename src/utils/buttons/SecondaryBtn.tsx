@@ -44,7 +44,9 @@ const SecondaryBtn = ({
           backgroundColor: `${
             danger ? red[500] : theme.palette.primary.main
           } !important`,
-          color: `${theme.palette.secondary.light}`,
+          color: danger
+            ? theme.palette.background.default
+            : `${theme.palette.secondary.light}`,
           borderColor: danger ? red[500] : theme.palette.primary.main,
         },
         backgroundColor: transparentBg

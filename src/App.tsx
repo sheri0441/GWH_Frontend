@@ -24,6 +24,7 @@ import SecondaryBtn from "./utils/buttons/SecondaryBtn";
 import { Typography } from "@mui/material";
 import PolicyPage from "./pages/policy";
 import TrackOrderPage from "./pages/TrackOrder";
+import LoadingPage from "./pages/LoadingPage";
 
 const theme = createTheme({
   typography: {
@@ -48,6 +49,7 @@ function App() {
   const dispatch = useAppDispatch();
   const { logout, isAuthenticated } = useAuth0();
   const [serverDown, setServerDown] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (localStorage.getItem("cart") !== null) {
@@ -69,20 +71,30 @@ function App() {
   }, []);
 
   const checkServer = async () => {
-    try {
-      const response = await axios.get(import.meta.env.VITE_API_URL + "/");
+    setIsLoading(true);
+    const sendRequest = async () => {
+      try {
+        const response = await axios.get(import.meta.env.VITE_API_URL + "/");
 
-      if (response.status !== 200) {
+        if (response.status === 200) {
+          setIsLoading(false);
+          clearInterval(sendServerRequest);
+        }
+      } catch (error) {
         setServerDown(true);
       }
-    } catch (error) {
-      setServerDown(true);
-    }
+    };
+
+    const sendServerRequest = setInterval(sendRequest, 10000);
   };
 
   useEffect(() => {
     checkServer();
   }, []);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <>

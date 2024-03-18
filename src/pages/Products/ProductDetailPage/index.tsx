@@ -9,7 +9,6 @@ import ProductCart from "../../../components/ProductCard";
 import ProductCardSkeleton from "../../../utils/ProductCardSkeleton";
 import axios from "axios";
 import { ProductDetail } from "../../../model/ProductDetail";
-import scrollToTop from "../../../utils/scrollToTop";
 
 const ProductDetailPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -47,7 +46,6 @@ const ProductDetailPage = () => {
   };
 
   useEffect(() => {
-    scrollToTop();
     fetchData();
   }, [id]);
 

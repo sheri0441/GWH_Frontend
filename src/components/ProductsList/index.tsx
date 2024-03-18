@@ -2,7 +2,6 @@ import { Box, Pagination } from "@mui/material";
 import { Product } from "../../model/Product";
 import ProductCart from "../ProductCard";
 import { useNavigate } from "react-router-dom";
-import scrollToTop from "../../utils/scrollToTop";
 import NotFound404 from "../../pages/Products/ProductDetailPage/NotFound404";
 
 interface Props {
@@ -23,7 +22,6 @@ const ProductsList = ({
   const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<unknown>) => {
-    scrollToTop();
     navigate(
       `${pageUrl}${(event.target as HTMLButtonElement).innerText}${sort}`
     );
