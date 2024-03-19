@@ -114,11 +114,13 @@ const OrderSummary = ({
               }}
             >
               <Typography>Sub-Total:</Typography>
-              <Typography>{subTotal}$</Typography>
+              <Typography>{subTotal.toFixed(2)}$</Typography>
               <Typography>Shipping:</Typography>
               <Typography>{shippingCost}$</Typography>
               <Typography sx={{ fontWeight: 600 }}>Net-Total:</Typography>
-              <Typography sx={{ fontWeight: 600 }}>{totalPrice}$</Typography>
+              <Typography sx={{ fontWeight: 600 }}>
+                {totalPrice.toFixed(2)}$
+              </Typography>
             </Box>
           </Box>
         </>

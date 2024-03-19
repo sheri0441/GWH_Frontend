@@ -2,7 +2,6 @@ import { Box, Tooltip, Typography } from "@mui/material";
 import IconSecondaryBtn from "./buttons/IconSecondaryBtn";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-// import { filterById } from "../feature/loginSlice";
 import ExtractImage from "./ExtractImage";
 import { setCartInfo, updateCart } from "../feature/loginSlice";
 

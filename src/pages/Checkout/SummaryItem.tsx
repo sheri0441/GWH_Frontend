@@ -100,7 +100,7 @@ const SummaryItem = ({
           }}
         >
           {item.quantity} X {item.price}$ =
-          <strong>{item.quantity * item.price}$ </strong>
+          <strong>{(item.quantity * item.price).toFixed(2)}$ </strong>
         </Typography>
       </Box>
     </Box>
