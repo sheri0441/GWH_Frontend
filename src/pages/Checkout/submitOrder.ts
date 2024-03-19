@@ -19,6 +19,7 @@ export const submitOrder = async (
   if (isPayingCash) {
     try {
       await axios.post(import.meta.env.VITE_API_URL + "/order/cash", dataForm);
+      navigate(location.pathname + "?status=success");
     } catch (error) {
       throw error;
     }
@@ -43,6 +44,4 @@ export const submitOrder = async (
       throw error;
     }
   }
-
-  navigate(location.pathname + "?status=success");
 };
