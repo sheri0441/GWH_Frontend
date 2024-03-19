@@ -1,30 +1,19 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  // List,
-  // ListItem,
-  // SvgIcon,
-  // Typography,
-  // useTheme,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-// import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import SearchContainer from "./SearchContainer";
 import FilterContainer from "./FilterContainer";
 import IconSecondaryBtn from "../../utils/buttons/IconSecondaryBtn";
-// import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
 import bodyOverflowHandler from "../../utils/bodyOverflowHandler";
-// import { useNavigate } from "react-router-dom";
+
 import SortOption from "./SortContainer";
 
 const FilterBar = () => {
-  // const theme = useTheme();
   const [showSort, setShowSort] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showFilter, setShowFilter] = useState<boolean>(false);
-
-  // const navigate = useNavigate();
 
   const showSortHandler = () => {
     setShowSort(!showSort);

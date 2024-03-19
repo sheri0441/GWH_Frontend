@@ -9,6 +9,7 @@ import ProductCart from "../../../components/ProductCard";
 import MainProduct from "./MainProduct";
 import MainProductSkeleton from "./MainProductSkeleton";
 import NotFound404 from "./NotFound404";
+import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
 
 const ProductDetailPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -48,6 +49,10 @@ const ProductDetailPage = () => {
   useEffect(() => {
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    bodyOverflowHandler(false);
+  }, []);
 
   return isLoading ? (
     <>

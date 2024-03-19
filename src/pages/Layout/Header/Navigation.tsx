@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import LinkNav from "../../../utils/LinkNav";
 import OverLayer from "../../../utils/OverLayer";
+import { useEffect } from "react";
 
 interface Props {
   showNavHandler: Function;
@@ -8,6 +9,11 @@ interface Props {
 }
 
 const Navigation = ({ showNav = false, showNavHandler }: Props) => {
+  useEffect(() => {
+    if (showNav && innerWidth < 900) {
+      showNavHandler();
+    }
+  }, [location.pathname]);
   return (
     <OverLayer
       showOverLayer={showNav}
