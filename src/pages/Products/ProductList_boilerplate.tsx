@@ -63,7 +63,7 @@ const ProductList_boilerplate = ({
           numberOfPages={numberOfPages}
           currentPage={currentPage}
           sort={search}
-          pageUrl={paginationBaseUrl} //difference
+          pageUrl={paginationBaseUrl}
         />
       )}
     </>

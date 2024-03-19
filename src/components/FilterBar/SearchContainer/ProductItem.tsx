@@ -15,7 +15,7 @@ const ProductItem = ({ product: { image, title, price, id } }: Props) => {
   const theme = useTheme();
 
   return (
-    <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/products/id/${id}`} style={{ textDecoration: "none" }}>
       <Box
         sx={{
           display: "flex",

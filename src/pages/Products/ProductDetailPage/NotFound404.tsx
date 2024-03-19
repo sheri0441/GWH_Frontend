@@ -15,7 +15,7 @@ const NotFound404 = () => {
         justifyContent: "center",
       }}
     >
-      <img src={notFound} alt="" />
+      <img style={{ width: "100%" }} src={notFound} alt="" />
       <Box
         sx={{ width: "fit-content", marginInline: "auto", marginTop: "3rem" }}
       >
