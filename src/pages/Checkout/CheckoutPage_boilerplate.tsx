@@ -23,10 +23,10 @@ const CheckoutPage_boilerplate = ({ cart }: { cart: Cart[] }) => {
     setShippingCost(cost);
   };
 
-  const submitHandler = (data: formInputs) => {
+  const submitHandler = async (data: formInputs) => {
     setIsLoading(true);
     try {
-      submitOrder(data, cart, totalPrice, navigate);
+      await submitOrder(data, cart, totalPrice, navigate);
     } catch (error) {
       setHasError(true);
     }
