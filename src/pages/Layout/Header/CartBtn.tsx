@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useAppSelector } from "../../../app/hooks";
 import { useTheme } from "@mui/material/styles";
+import { useAppSelector } from "../../../app/hooks";
+import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 
 const CartBtn = ({ showCartHandler }: { showCartHandler: Function }) => {
   const theme = useTheme();

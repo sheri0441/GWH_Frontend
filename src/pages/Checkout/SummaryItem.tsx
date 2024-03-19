@@ -1,10 +1,9 @@
-import IconSecondaryBtn from "../../utils/buttons/IconSecondaryBtn";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Typography, useTheme } from "@mui/material";
-import ExtractImage from "../../utils/ExtractImage";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setCartInfo, updateCart } from "../../feature/loginSlice";
-// import { filterById } from "../../feature/loginSlice";
+import IconSecondaryBtn from "../../utils/buttons/IconSecondaryBtn";
+import ExtractImage from "../../utils/ExtractImage";
 
 const SummaryItem = ({
   item,

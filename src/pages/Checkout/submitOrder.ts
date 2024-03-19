@@ -1,7 +1,7 @@
 import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 import { Cart } from "../../model/Cart";
 import { formInputs } from "../../model/FormInput";
-import { loadStripe } from "@stripe/stripe-js";
 
 export const submitOrder = async (
   data: formInputs,

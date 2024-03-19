@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import FilterBar from "../../components/FilterBar";
@@ -6,7 +7,6 @@ import PageTitle from "../../utils/PageTitle";
 import ErrorMessage from "../../utils/ErrorMessage";
 import ProductsList from "../../components/ProductsList";
 import ProductListSkeleton from "./ProductListSkeleton";
-import axios from "axios";
 
 const ProductList_boilerplate = ({
   pageTitle,

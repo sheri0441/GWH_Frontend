@@ -1,15 +1,15 @@
 import { Box, Container, Typography } from "@mui/material";
-import PageTitle from "../../utils/PageTitle";
-import OrderSummary from "./OrderSummary";
-import CheckOutForm from "./CheckOutForm";
 import { useEffect, useState } from "react";
-import { formInputs } from "../../model/FormInput";
-import { submitOrder } from "./submitOrder";
-import { Cart } from "../../model/Cart";
 import { useNavigate } from "react-router-dom";
+import { formInputs } from "../../model/FormInput";
+import { Cart } from "../../model/Cart";
+import PageTitle from "../../utils/PageTitle";
 import LoadingAnimation from "../../utils/LoadingAnimation";
 import OverLayerNote from "../../utils/OverLayerNote";
 import SecondaryBtn from "../../utils/buttons/SecondaryBtn";
+import OrderSummary from "./OrderSummary";
+import CheckOutForm from "./CheckOutForm";
+import { submitOrder } from "./submitOrder";
 
 const CheckoutPage_boilerplate = ({ cart }: { cart: Cart[] }) => {
   const [shippingCost, setShippingCost] = useState<number>(0);

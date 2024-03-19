@@ -1,8 +1,6 @@
 import { Box, Container } from "@mui/material";
 import PageTitle from "../../utils/PageTitle";
-
 import ContactForm from "./ContactForm";
-
 import FAQSection from "./FAQ";
 
 const ContactPage = () => {

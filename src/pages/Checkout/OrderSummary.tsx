@@ -1,9 +1,9 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import SummaryItem from "./SummaryItem";
 import { useEffect, useState } from "react";
-import { Cart } from "../../model/Cart";
 import axios from "axios";
+import { Cart } from "../../model/Cart";
 import ErrorMessage from "../../utils/ErrorMessage";
+import SummaryItem from "./SummaryItem";
 
 const OrderSummary = ({
   shippingCost,

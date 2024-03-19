@@ -1,21 +1,21 @@
-import { Box, SvgIcon, Typography } from "@mui/material";
-import IconSecondaryBtn from "../../../../utils/buttons/IconSecondaryBtn";
-import SecondaryBtn from "../../../../utils/buttons/SecondaryBtn";
-import Person2Icon from "@mui/icons-material/Person2";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Box, SvgIcon, Typography } from "@mui/material";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import Person2Icon from "@mui/icons-material/Person2";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import HaveProductDialog from "./HaveProductDialog";
 import {
   logIn,
   setCartInfo,
   toggleHasError,
 } from "../../../../feature/loginSlice";
+import IconSecondaryBtn from "../../../../utils/buttons/IconSecondaryBtn";
+import SecondaryBtn from "../../../../utils/buttons/SecondaryBtn";
 import LoadingAnimation from "../../../../utils/LoadingAnimation";
 import OverLayerNote from "../../../../utils/OverLayerNote";
-import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
-import { useNavigate } from "react-router-dom";
+import HaveProductDialog from "./HaveProductDialog";
 import defaultImage from "../../../../assets/image/genericUser.jpg";
 
 const LoginButtons = () => {

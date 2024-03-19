@@ -1,12 +1,12 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Divider, Typography } from "@mui/material";
+import { useAppSelector } from "../../../../app/hooks";
 import OverLayer from "../../../../utils/OverLayer";
 import ProductItemCart from "../../../../utils/ProductItemCart";
 import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../../app/hooks";
 import scrollToTop from "../../../../utils/scrollToTop";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import CartSkeleton from "./CartSkeleton";
 
 interface Props {

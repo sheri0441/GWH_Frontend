@@ -1,8 +1,8 @@
 import { Box, Dialog, DialogTitle } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import SecondaryBtn from "../../../../utils/buttons/SecondaryBtn";
 import PrimaryBtn from "../../../../utils/buttons/PrimaryBtn";
 import { updateCart } from "../../../../feature/loginSlice";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 
 const HaveProductDialog = ({
   open,

@@ -1,9 +1,9 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Header from "./Header";
 import { Box } from "@mui/material";
-import Footer from "./Footer";
 import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import scrollToTop from "../../utils/scrollToTop";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = () => {
   const location = useLocation();

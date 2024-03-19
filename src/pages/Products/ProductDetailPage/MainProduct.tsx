@@ -1,17 +1,17 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import ExtractImage from "../../../utils/ExtractImage";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Box, Typography, useTheme } from "@mui/material";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { setCartInfo, updateCart } from "../../../feature/loginSlice";
+import { ProductDetail } from "../../../model/ProductDetail";
+import ExtractImage from "../../../utils/ExtractImage";
 import TertiaryBtn from "../../../utils/buttons/TertiaryBtn";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import SecondaryBtn from "../../../utils/buttons/SecondaryBtn";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
 import style from "./MainProduct.module.css";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setCartInfo, updateCart } from "../../../feature/loginSlice";
-import { ProductDetail } from "../../../model/ProductDetail";
 
 const MainProduct = ({ product }: { product: ProductDetail }) => {
   const theme = useTheme();

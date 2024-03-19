@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
 import notFound from "../../../assets/image/404.svg";
-import { useNavigate } from "react-router-dom";
 
 const NotFound404 = () => {
   const navigate = useNavigate();

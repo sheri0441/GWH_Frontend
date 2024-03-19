@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import SectionHeader from "../../../utils/SectionHeader";
-import CategoryCard from "./CategoryCard";
-import ErrorMessage from "../../../utils/ErrorMessage";
-import { Category } from "../../../model/Category";
-import CategoryCardSkeleton from "./CategoryCardSkeleton";
 import axios from "axios";
+import { Category } from "../../../model/Category";
+import SectionHeader from "../../../utils/SectionHeader";
+import ErrorMessage from "../../../utils/ErrorMessage";
+import CategoryCard from "./CategoryCard";
+import CategoryCardSkeleton from "./CategoryCardSkeleton";
 
 const Categories = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

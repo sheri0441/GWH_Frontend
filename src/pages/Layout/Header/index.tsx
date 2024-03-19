@@ -1,13 +1,13 @@
+import { useState, useEffect } from "react";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { Box, Container, useTheme } from "@mui/material";
-import LogoLink from "../../../components/LogoLink";
 import IconSecondaryBtn from "../../../utils/buttons/IconSecondaryBtn";
+import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
+import LogoLink from "../../../components/LogoLink";
 import Navigation from "./Navigation";
-import { useState, useEffect } from "react";
 import ShopCart from "./ShopCart";
 import LoginButtons from "./LoginButtons";
 import CartBtn from "./CartBtn";
-import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
 
 const Header = () => {
   const [showNav, setShowNav] = useState<boolean>(false);

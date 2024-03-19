@@ -7,13 +7,12 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import axios from "axios";
 import { Product } from "../../../model/Product";
 import PrimaryBtn from "../../../utils/buttons/PrimaryBtn";
-import NewArrivalCard from "./NewArrivalCard";
 import Pattern from "../../../assets/image/pattern.png";
 import Modal from "../../../assets/image/modal.png";
-// import ErrorMessage from "../../../utils/ErrorMessage";
-import axios from "axios";
+import NewArrivalCard from "./NewArrivalCard";
 
 const Hero = () => {
   const theme = useTheme();

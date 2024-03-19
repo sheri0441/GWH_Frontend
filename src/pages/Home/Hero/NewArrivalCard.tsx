@@ -1,8 +1,8 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import style from "./NewArrivalCard.module.css";
 import { Product } from "../../../model/Product";
 import ExtractImage from "../../../utils/ExtractImage";
+import style from "./NewArrivalCard.module.css";
 
 const NewArrivalCard = ({
   product: { image, id, title, price },

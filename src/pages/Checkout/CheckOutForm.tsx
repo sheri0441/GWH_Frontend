@@ -14,6 +14,7 @@ import { orderFormSchema } from "../../schema/OrderFormSchema";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setCartInfo, updateCart } from "../../feature/loginSlice";
+import OverLayerNote from "../../utils/OverLayerNote";
 
 const CheckOutForm = ({
   shippingCostHandler,
@@ -28,6 +29,7 @@ const CheckOutForm = ({
   const isLogin = useAppSelector((store) => store.login.isLogin);
   const dispatch = useAppDispatch();
   const [isPayingWithCard, setIsPayingWithCard] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const status = queryParams.get("status");
@@ -46,6 +48,14 @@ const CheckOutForm = ({
       onlineMethod: "stripe",
     },
   });
+
+  const successNoteHandler = () => {
+    setIsSuccess(true);
+
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 5000);
+  };
 
   const onSubmit = (data: formInputs) => {
     let formStructure: formInputs = {
@@ -93,12 +103,20 @@ const CheckOutForm = ({
         dispatch(setCartInfo([]));
         localStorage.setItem("cart", JSON.stringify([]));
       }
+      successNoteHandler();
     }
   }, [status]);
 
   return (
     <>
       <Box sx={{ marginTop: "1.5rem", gridColumn: { md: "3 / 4" } }}>
+        {isSuccess && (
+          <OverLayerNote>
+            <Typography sx={{ fontWeight: "600", fontSize: "1.5rem" }}>
+              Successfully submitted!
+            </Typography>
+          </OverLayerNote>
+        )}
         <Typography
           component={"h2"}
           sx={{

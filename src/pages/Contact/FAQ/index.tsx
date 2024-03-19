@@ -6,7 +6,6 @@ const FAQSection = () => {
   return (
     <Box
       sx={{
-        // marginTop: "4rem",
         paddingTop: "4rem",
       }}
       id="faq"

@@ -1,14 +1,14 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import { Product } from "../../../model/Product";
+import { ProductDetail } from "../../../model/ProductDetail";
+import ProductCardSkeleton from "../../../utils/ProductCardSkeleton";
+import ProductCart from "../../../components/ProductCard";
 import MainProduct from "./MainProduct";
 import MainProductSkeleton from "./MainProductSkeleton";
 import NotFound404 from "./NotFound404";
-import { Box, Skeleton, Stack, Typography } from "@mui/material";
-import ProductCart from "../../../components/ProductCard";
-import ProductCardSkeleton from "../../../utils/ProductCardSkeleton";
-import axios from "axios";
-import { ProductDetail } from "../../../model/ProductDetail";
 
 const ProductDetailPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

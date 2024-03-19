@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import ProductCard from "../../components/ProductCard";
+import axios from "axios";
+import { Product } from "../../model/Product";
 import SectionHeader from "../../utils/SectionHeader";
 import ErrorMessage from "../../utils/ErrorMessage";
-import { Product } from "../../model/Product";
 import ProductCardSkeleton from "../../utils/ProductCardSkeleton";
-import axios from "axios";
+import ProductCard from "../../components/ProductCard";
 
 const Featured = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

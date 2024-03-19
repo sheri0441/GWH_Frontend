@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { z } from "zod";
-import ThankNote from "./ThankNote";
 import bodyOverflowHandler from "../../../utils/bodyOverflowHandler";
 import InputField from "../../../utils/Inputs/InputField";
 import InputSubmit from "../../../utils/Inputs/InputSubmit";
-import axios from "axios";
+import ThankNote from "./ThankNote";
 import ErrorNote from "./ErrorNote";
 
 interface formInputs {
