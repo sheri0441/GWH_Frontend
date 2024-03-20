@@ -1,21 +1,37 @@
-# Overview
+# Project Name
 
-This is E-commerce website for fashion which is structured to build on MERN.
+This is project is frontend of my E-commerce Website. It was developed with React Js, CSS, and Material UI.
 
-## Packages/Dependencies
+## Table of Contents
 
-1. React Js - JavaScript library
-2. Vite - Environment to fast runtime
-3. auth0 - control login
-4. TypeScript - use with react to make it strict and bug free
-5. React Router Dom - control route
-6. Redux toolkit - Data control
-7. Material UI - styling
+- [Project Name](#project-name)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [Installation](#installation)
 
-## Folder Structure
+## About
 
-Components are located three places.
+The purpose of this project is to create a user friendly e-commerce website using the MERN stack (MongoDB, Express.js, React JS).
 
-1. utils folder - contain the atom level component
-2. pages folder - contain pages with components that is used only in related page folder
-3. components folder - contain components that are like pervious point but use on multiple section
+## Features
+
+This is website have the following features:
+
+- User can login with google account.
+- User can save their cart product list in their account or locally.
+- User can place order either by cash on deliver or stripe.
+
+## Installation
+
+To install dependencies
+
+```bash
+npm install
+```
+
+To start server
+
+```bash
+npm run dev
+```
