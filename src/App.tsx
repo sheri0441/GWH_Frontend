@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { isExpired } from "react-jwt";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Typography } from "@mui/material";
 import { useAppDispatch } from "./app/hooks";
 import { setCartInfo } from "./feature/loginSlice";
-import OverLayerNote from "./utils/OverLayerNote";
-import SecondaryBtn from "./utils/buttons/SecondaryBtn";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import ProductsPage from "./pages/Products";
@@ -23,7 +19,6 @@ import SingleProduct from "./pages/Checkout/SingleProduct";
 import UserPage from "./pages/UserPage";
 import PolicyPage from "./pages/policy";
 import TrackOrderPage from "./pages/TrackOrder";
-import LoadingPage from "./pages/LoadingPage";
 
 const theme = createTheme({
   typography: {
@@ -47,8 +42,6 @@ const theme = createTheme({
 function App() {
   const dispatch = useAppDispatch();
   const { logout, isAuthenticated } = useAuth0();
-  const [serverDown, setServerDown] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (localStorage.getItem("cart") !== null) {
@@ -68,32 +61,6 @@ function App() {
       localStorage.removeItem("token");
     }
   }, []);
-
-  const checkServer = async () => {
-    setIsLoading(true);
-    const sendRequest = async () => {
-      try {
-        const response = await axios.get(import.meta.env.VITE_API_URL + "/");
-
-        if (response.status === 200) {
-          setIsLoading(false);
-          clearInterval(sendServerRequest);
-        }
-      } catch (error) {
-        setServerDown(true);
-      }
-    };
-
-    const sendServerRequest = setInterval(sendRequest, 10000);
-  };
-
-  useEffect(() => {
-    checkServer();
-  }, []);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <>
@@ -136,20 +103,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
-      {serverDown && (
-        <OverLayerNote>
-          <Typography>
-            There is some issue in the server. Please reload site.
-          </Typography>
-          <SecondaryBtn
-            padding="0.5rem"
-            danger={true}
-            clickEvent={() => window.location.reload()}
-          >
-            Reload Site
-          </SecondaryBtn>
-        </OverLayerNote>
-      )}
     </>
   );
 }
